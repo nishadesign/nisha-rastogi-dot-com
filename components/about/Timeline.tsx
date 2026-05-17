@@ -3,13 +3,12 @@
 import { useEffect, useRef, useState } from "react";
 import Image from "next/image";
 import Link from "next/link";
-import { Heart, FileText, Plane, Briefcase } from "lucide-react";
+import { Heart, Plane, Briefcase } from "lucide-react";
 import { motion } from "motion/react";
 import type { TimelineCategory, TimelineEntry } from "@/data/timeline";
 
 const CATEGORY_ICONS: Record<TimelineCategory, typeof Heart> = {
   life: Heart,
-  thoughts: FileText,
   travel: Plane,
   work: Briefcase,
 };

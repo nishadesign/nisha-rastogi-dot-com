@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import { Inter } from "next/font/google";
+import { Analytics } from "@vercel/analytics/next";
 import { Nav } from "@/components/layout/Nav";
 import { Footer } from "@/components/layout/Footer";
 import { profile } from "@/data/profile";
@@ -36,6 +37,7 @@ export default function RootLayout({
         <div className="pt-20 tablet:pt-24" />
         {children}
         <Footer />
+        <Analytics />
       </body>
     </html>
   );

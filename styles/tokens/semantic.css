@@ -28,19 +28,7 @@
   --color-floating: rgb(var(--color-floating-rgb));
   --color-inverse: rgb(var(--color-inverse-rgb));
   --color-accent: rgb(var(--color-accent-rgb));
-}
 
-@media (prefers-color-scheme: dark) {
-  :root {
-    --color-content-rgb: 255 255 255;
-    --color-muted-rgb: 255 255 255 / 0.7;
-    --color-background-rgb: 0 0 0;
-    --color-background-alt-rgb: 255 255 255 / 0.1;
-    --color-background-alt-hover-rgb: 255 255 255 / 0.15;
-    --color-border-rgb: 255 255 255 / 0.2;
-    --color-border-strong-rgb: 255 255 255 / 0.2;
-    --color-elevated-rgb: 31 31 31;
-    --color-floating-rgb: 64 64 64 / 0.6;
-    --color-inverse-rgb: 0 0 0;
-  }
+  /* Force light mode — ignore OS dark mode preference */
+  color-scheme: light;
 }

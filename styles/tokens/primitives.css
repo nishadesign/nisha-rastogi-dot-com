@@ -1,0 +1,33 @@
+/* Primitive tokens — raw values only, no semantics */
+:root {
+  /* Color primitives */
+  --color-black: #000;
+  --color-white: #fff;
+
+  /* Type families */
+  --font-body: "Inter", system-ui, -apple-system, sans-serif;
+  --font-heading: "Inter Display", "Inter", system-ui, -apple-system, sans-serif;
+  --font-mono: "SF Mono", "Fira Code", ui-monospace, monospace;
+
+  /* Spacing base */
+  --spacing: 0.25rem;
+
+  /* Radius scale */
+  --radius-sm: 0.25rem;
+  --radius-md: 0.375rem;
+  --radius-lg: 0.5rem;
+  --radius-xl: 0.75rem;
+  --radius-2xl: 1rem;
+
+  /* Motion */
+  --ease-out: cubic-bezier(0, 0, 0.2, 1);
+  --ease-in-out: cubic-bezier(0.4, 0, 0.2, 1);
+  --duration-fast: 150ms;
+  --duration-base: 300ms;
+  --duration-slow: 500ms;
+
+  /* Layout */
+  --container-max: 1400px;
+  --container-px: 20px;
+  --container-px-tablet: 40px;
+}

@@ -1,0 +1,98 @@
+---
+title: RAG is just laundry done well, actually
+slug: rag-is-just-laundry
+date: "2026-01"
+description: Turns out building an AI system isn't that different from doing your laundry! Grab your basket, and let's breakdown the RAG pipelines without the jargon.
+---
+
+As a product designer, designing an enterprise grade AI platform has been a wildy rewarding journey. In the last two years, I have worked on some really fun projects, such as Service Agent, Agent Builder and most fun of all **Data for AI agents**.
+
+Each project came with its own set of challenges and the ever-evolving landscape of AI systems did not make it easy. Learning about RAG systems, Reinforment Learning, Knowledge Graphs, Context Windows, Hallucinations was one hell of a journey. There is always a new model faster and better than the last, a new startup kicking established design patterns in the gut, or a new term being thrown around that everyone expects you to know.
+
+The bigger challenge, however, was the fear of insignificance. In big tech companies, if people don’t understand what you’re working on, your work can start to feel invisible. People might say, “Don’t worry about what others think,” but they’re lying. It is vital that your peers understand your work and its importance.
+
+### What is RAG?
+
+**Retrieval-Augmented Generation (RAG)** is a technique that gives AI access to reliable, specific data before it generates an answer.
+
+When building an **AI Agent**, it is crucial to provide relevant data sources so the system can retrieve the right information to ground its responses. Think of it as an “open-book exam” for the AI.
+
+**The 3-Step Logic:**
+
+- **Ask:** You ask the AI a question.
+
+- **Retrieve:** The system searches your data for the most relevant information.
+
+- **Generate:** The AI reads those specific facts and uses them to write a grounded, accurate answer.
+
+### The laundry analogy
+
+Since I started working Data for AI agents, the term ‘RAG pipelines’ was thrown around a lot. It did take me a good year to fully wrap my head around it (I promise I’m not slow—getting clear answers isn’t always easy!). I’m sharing this analogy I created to explain RAG to my stakeholders without boring them to death. It was designed for a non-technical audience, and it worked! (atleast I think it did)
+
+*The Scenario: On Sunday, you have a date coming up with your partner and you want to look fabulous on your date*! *Keep this in mind as we proceed.*
+
+### Unstructured Data: The Dirty Pile
+
+It’s Sunday morning, and you’re staring at a massive pile of **yours and your partner’s dirty clothes**. You spot the "purple dress" you want to wear for your date tomorrow, so you decide to do the laundry. This is like the vast, **unstructured data** AI agents work with—a messy mix of information that’s hard to navigate."
+
+![Unstructured data is like dirty pile](/images/thoughts/rag-is-just-laundry/image-01.png)
+
+### Clean and Process data: Remove those stains
+
+When you wash those clothes, you make sure to toss out old receipts, socks with holes, and that free conference T-shirt you’ll never wear.
+
+Raw data is messy. **Processing** is the step where the system removes duplicates, strips unnecessary headers or footers, fixes encoding issues, and deletes irrelevant or outdated content.
+
+![Clean and process data to get rid of unwanted stains](/images/thoughts/rag-is-just-laundry/image-02.png)
+
+### Chunking: Folding into usable pieces
+
+Once the laundry is dry, you focus on folding one piece at a time. Similarly, LLMs can’t always “read” an entire massive document at once. **Chunking** splits the data into smaller pieces that are small enough for the AI to process, but big enough to keep the meaning intact.
+
+![Chunking: Split the data into smaller and meaningful pieces](/images/thoughts/rag-is-just-laundry/image-03.png)
+
+### Enrichment: Tagging with labels
+
+Now for the fun part! Once the clothes are folded, you separate yours from your partner’s. It’s like mentally **tagging** your clothes: “Mine” goes to the left, “Theirs” goes to the right.
+
+In RAG, **enrichment** adds context that tells the system when and how a piece of information should be used. After all, you don’t want to accidentally wear your partner’s T-shirt to work tomorrow. Enrichment is about constraints and guardrails.
+
+![Enrich your data with tags](/images/thoughts/rag-is-just-laundry/image-04.png)
+
+### Embedding: Organizing by vibes
+
+Now you start organizing your clothes by “vibe.” Office wear shouldn’t mix with gym wear or your date-night dress. You arrange them based on usage and meaning.
+
+When data is **embedded**, it’s converted into a long list of numbers (vectors) that captures:
+
+- What the data is about.
+
+- How it relates to other data.
+
+- What it’s “similar” to, even if the words are different.
+
+**Embeddings** turn meaning into math. It’s how machines sense that two things are related without being explicitly told why. It’s all about **relevance**.
+
+![Embedding is all about organizing data based on vibes](/images/thoughts/rag-is-just-laundry/image-05.png)
+
+### Search Index
+
+Now that your laundry is clean, sorted, and folded, it’s time to put it in the closet. You have shelves for your office wear, dresses hang on the right side of the closet, and drawers for socks. How you structure your closet determines how fast you can find what you need.
+
+Similarly, a **Search Index** is the system that decides where everything lives and how quickly it can be retrieved. It enables **finding**.
+
+![Search index adds structure to your data to make it findable](/images/thoughts/rag-is-just-laundry/image-06.png)
+
+### Retriever
+
+You’re feeling lazy after all that organizing, so you ask your partner to help you out by bringing you the purple dress. Your partner opens the closet, scans the “dresses” section on the right, and quickly finds the exact one you asked for.
+
+Your partner is the **Retriever**. They find the relevant “dress” based on your “query” and bring it to you. Once the LLM retrieves that grounded information, it uses it to generate a perfect response.
+
+![Retriever is the partner who goes and get it.](/images/thoughts/rag-is-just-laundry/image-07.png)
+
+### The Business Value
+
+You’ve heard the principle: **“Garbage in, garbage out.”** If the data you provide to an LLM is messy or irrelevant, your AI Agent will lack the context it needs to generate accurate responses.
+
+By cleaning the laundry and organizing the closet, we ensure the Agent always shows up to the date looking its best. 😉

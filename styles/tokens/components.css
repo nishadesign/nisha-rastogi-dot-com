@@ -1,0 +1,21 @@
+/* Component tokens — only when a component needs its own slot.
+   Reads from semantic layer. Edit a value here to retheme one component
+   without touching the rest of the system. */
+
+:root {
+  /* Block (case-study bento block) */
+  --block-bg: var(--color-background-alt);
+  --block-radius-mobile: 14px;
+  --block-radius-tablet: 20px;
+  --block-radius-desktop: 30px;
+  --block-padding-mobile: 20px;
+  --block-padding-tablet: 32px;
+  --block-padding-desktop: 40px;
+
+  /* Nav */
+  --nav-bg: var(--color-floating);
+  --nav-blur: 40px;
+
+  /* Card hover */
+  --card-hover-scale: 1.03;
+}

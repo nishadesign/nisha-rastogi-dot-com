@@ -1,0 +1,68 @@
+"use client";
+
+import type { ReactNode } from "react";
+import { motion } from "motion/react";
+
+type BlockProps = {
+  children: ReactNode;
+  colSpan?: 1 | 2 | 3 | 4 | 5 | 6;
+  rowSpan?: 1 | 2 | 3 | 4;
+  variant?: "text" | "media";
+  aspectRatio?: number; // for media blocks; e.g. 1.6
+};
+
+const ENTER = {
+  initial: { opacity: 0, y: 24 },
+  whileInView: { opacity: 1, y: 0 },
+  viewport: { once: true, margin: "0px 0px -10% 0px" },
+  transition: { duration: 0.6, ease: [0, 0, 0.2, 1] },
+} as const;
+
+const COL_CLASSES: Record<number, string> = {
+  1: "desktop:col-span-1",
+  2: "desktop:col-span-2",
+  3: "desktop:col-span-3",
+  4: "desktop:col-span-4",
+  5: "desktop:col-span-5",
+  6: "desktop:col-span-6",
+};
+
+const ROW_CLASSES: Record<number, string> = {
+  1: "desktop:row-span-1",
+  2: "desktop:row-span-2",
+  3: "desktop:row-span-3",
+  4: "desktop:row-span-4",
+};
+
+export function Block({
+  children,
+  colSpan = 6,
+  rowSpan = 3,
+  variant = "text",
+  aspectRatio,
+}: BlockProps) {
+  const colClass = COL_CLASSES[colSpan];
+  const rowClass = ROW_CLASSES[rowSpan];
+
+  if (variant === "media") {
+    return (
+      <motion.div className={`${colClass} ${rowClass}`} {...ENTER}>
+        <div
+          className="relative w-full overflow-hidden block-radius"
+          style={{
+            backgroundColor: "var(--color-background-alt)",
+            aspectRatio: aspectRatio ?? undefined,
+          }}
+        >
+          {children}
+        </div>
+      </motion.div>
+    );
+  }
+
+  return (
+    <motion.div className={`${colClass} ${rowClass}`} {...ENTER}>
+      <div className="h-full">{children}</div>
+    </motion.div>
+  );
+}

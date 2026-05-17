@@ -1,0 +1,406 @@
+@import "tailwindcss";
+@import "../styles/tokens/primitives.css";
+@import "../styles/tokens/semantic.css";
+@import "../styles/tokens/components.css";
+
+@theme {
+  --font-body: "Inter", system-ui, sans-serif;
+  --font-heading: "Inter Display", "Inter", system-ui, sans-serif;
+  --font-mono: "SF Mono", "Fira Code", ui-monospace, monospace;
+
+  --color-content: rgb(var(--color-content-rgb));
+  --color-muted: rgb(var(--color-muted-rgb));
+  --color-background: rgb(var(--color-background-rgb));
+  --color-background-alt: rgb(var(--color-background-alt-rgb));
+  --color-background-alt-hover: rgb(var(--color-background-alt-hover-rgb));
+  --color-border: rgb(var(--color-border-rgb));
+  --color-border-strong: rgb(var(--color-border-strong-rgb));
+  --color-elevated: rgb(var(--color-elevated-rgb));
+  --color-floating: rgb(var(--color-floating-rgb));
+  --color-inverse: rgb(var(--color-inverse-rgb));
+  --color-accent: rgb(var(--color-accent-rgb));
+
+  --breakpoint-tablet: 810px;
+  --breakpoint-desktop: 1280px;
+}
+
+/* Reset / base */
+* {
+  box-sizing: border-box;
+}
+
+html {
+  font-family: var(--font-body);
+  color: var(--color-content);
+  background-color: var(--color-background);
+  scroll-behavior: smooth;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+html,
+body {
+  font-size: 16px;
+}
+
+body {
+  letter-spacing: -0.01em;
+  min-height: 100vh;
+  margin: 0;
+  line-height: 1.4;
+}
+
+@media (min-width: 810px) {
+  body {
+    font-size: 18px;
+  }
+}
+
+@media (min-width: 1280px) {
+  body {
+    font-size: 20px;
+  }
+}
+
+p {
+  margin: 0;
+}
+
+a {
+  color: inherit;
+  text-decoration: none;
+}
+
+/* Heading scale (gabriel-equivalent) */
+h1,
+h2,
+h3,
+h4,
+h5 {
+  font-family: var(--font-heading);
+  margin: 0;
+  color: var(--color-content);
+}
+
+h1 {
+  letter-spacing: -0.04em;
+  font-size: 34px;
+  font-weight: 400;
+  line-height: 1.1;
+}
+
+@media (min-width: 810px) {
+  h1 {
+    font-size: 60px;
+  }
+}
+
+@media (min-width: 1280px) {
+  h1 {
+    font-size: 100px;
+  }
+}
+
+/* Hero H1 — fluid, fits one line on tablet+, wraps on mobile */
+.hero-h1 {
+  font-size: clamp(36px, 5.4vw, 140px);
+  line-height: 1.05;
+}
+
+@media (min-width: 810px) {
+  .hero-h1 {
+    white-space: nowrap;
+    line-height: 1;
+  }
+}
+
+h2 {
+  letter-spacing: -0.02em;
+  font-size: 28px;
+  font-weight: 400;
+  line-height: 1.3;
+}
+
+@media (min-width: 810px) {
+  h2 {
+    font-size: 36px;
+  }
+}
+
+@media (min-width: 1280px) {
+  h2 {
+    font-size: 48px;
+  }
+}
+
+h3 {
+  letter-spacing: -0.03em;
+  font-size: 22px;
+  font-weight: 400;
+  line-height: 1.3;
+}
+
+@media (min-width: 810px) {
+  h3 {
+    font-size: 26px;
+  }
+}
+
+@media (min-width: 1280px) {
+  h3 {
+    font-size: 30px;
+  }
+}
+
+h4 {
+  letter-spacing: -0.3px;
+  font-size: clamp(20px, 2vw, 24px);
+  font-weight: 400;
+  line-height: 1.3;
+}
+
+h5 {
+  font-size: 20px;
+  letter-spacing: -0.02em;
+  font-weight: 500;
+  line-height: 1.3;
+}
+
+h6 {
+  font-family: var(--font-mono);
+  text-transform: uppercase;
+  letter-spacing: -0.03em;
+  margin: 0;
+  font-size: 13px;
+  font-weight: 400;
+  line-height: 1.2;
+  color: var(--color-muted);
+}
+
+@media (min-width: 810px) {
+  h6 {
+    font-size: 14px;
+  }
+}
+
+/* Two-tone display — Nisha's signature differentiator */
+h1 em,
+h2 em,
+h3 em {
+  font-style: normal;
+  color: var(--color-content);
+}
+
+h1.two-tone,
+h2.two-tone,
+h3.two-tone {
+  color: var(--color-muted);
+}
+
+/* Body text utilities */
+.text-body {
+  font-size: 16px;
+  line-height: 1.4;
+}
+
+@media (min-width: 810px) {
+  .text-body {
+    font-size: 18px;
+  }
+}
+
+@media (min-width: 1280px) {
+  .text-body {
+    font-size: 20px;
+  }
+}
+
+.text-body-large {
+  font-size: 18px;
+  line-height: 1.4;
+}
+
+@media (min-width: 810px) {
+  .text-body-large {
+    font-size: 22px;
+  }
+}
+
+@media (min-width: 1280px) {
+  .text-body-large {
+    font-size: 26px;
+  }
+}
+
+.text-caption {
+  font-size: 14px;
+}
+
+@media (min-width: 810px) {
+  .text-caption {
+    font-size: 15px;
+  }
+}
+
+@media (min-width: 1280px) {
+  .text-caption {
+    font-size: 16px;
+  }
+}
+
+/* Page transition */
+@keyframes fadeInUp {
+  0% {
+    opacity: 0;
+    transform: translateY(12px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.page-transition {
+  animation: fadeInUp 0.5s var(--ease-out) both;
+}
+
+/* Reduced motion */
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+}
+
+/* Container */
+.container-shell {
+  max-width: var(--container-max);
+  margin-inline: auto;
+  padding-inline: var(--container-px);
+}
+
+@media (min-width: 810px) {
+  .container-shell {
+    padding-inline: var(--container-px-tablet);
+  }
+}
+
+/* Thoughts post body — markdown image styling */
+.prose-thoughts img {
+  width: 100%;
+  max-width: 800px;
+  height: auto;
+  border-radius: var(--block-radius-mobile);
+  margin-top: 2.5rem;
+  margin-bottom: 2.5rem;
+  display: block;
+}
+
+.prose-thoughts h2,
+.prose-thoughts h3 {
+  margin-top: 2rem;
+}
+
+@media (min-width: 810px) {
+  .prose-thoughts h2,
+  .prose-thoughts h3 {
+    margin-top: 3rem;
+  }
+}
+
+@media (min-width: 810px) {
+  .prose-thoughts img {
+    border-radius: var(--block-radius-tablet);
+  }
+}
+
+@media (min-width: 1280px) {
+  .prose-thoughts img {
+    border-radius: var(--block-radius-desktop);
+  }
+}
+
+.prose-thoughts a {
+  text-decoration: underline;
+  text-underline-offset: 3px;
+  transition: opacity 150ms ease-out;
+}
+
+.prose-thoughts a:hover {
+  opacity: 0.6;
+}
+
+.prose-thoughts ul,
+.prose-thoughts ol {
+  padding-left: 1.5rem;
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+}
+
+.prose-thoughts blockquote {
+  padding-left: 1rem;
+  border-left: 2px solid var(--color-border-strong);
+  color: var(--color-muted);
+  font-style: italic;
+}
+
+/* Hide scrollbar but keep scrolling */
+.hide-scrollbar {
+  scrollbar-width: none;
+  -ms-overflow-style: none;
+}
+.hide-scrollbar::-webkit-scrollbar {
+  display: none;
+}
+
+/* Featured Work horizontal scroll — left edge aligns with H1, bleeds right */
+.featured-scroll {
+  padding-left: var(--container-px);
+  scroll-padding-left: var(--container-px);
+}
+
+@media (min-width: 810px) {
+  .featured-scroll {
+    padding-left: var(--container-px-tablet);
+    scroll-padding-left: var(--container-px-tablet);
+  }
+}
+
+/* Bento block radius (responsive) */
+.block-radius {
+  border-radius: var(--block-radius-mobile);
+}
+
+@media (min-width: 810px) {
+  .block-radius {
+    border-radius: var(--block-radius-tablet);
+  }
+}
+
+@media (min-width: 1280px) {
+  .block-radius {
+    border-radius: var(--block-radius-desktop);
+  }
+}
+
+/* Bento block padding (responsive) */
+.block-padding {
+  padding: var(--block-padding-mobile);
+}
+
+@media (min-width: 810px) {
+  .block-padding {
+    padding: var(--block-padding-tablet);
+  }
+}
+
+@media (min-width: 1280px) {
+  .block-padding {
+    padding: var(--block-padding-desktop);
+  }
+}

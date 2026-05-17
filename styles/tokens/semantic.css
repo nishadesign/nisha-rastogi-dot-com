@@ -1,0 +1,46 @@
+/* Semantic tokens — intent-named. Components read from this layer ONLY. */
+
+:root {
+  /* Light mode (default) — grey page, white cards */
+  --color-content-rgb: 0 0 0;
+  --color-muted-rgb: 0 0 0 / 0.6;
+  --color-background-rgb: 245 245 245;
+  --color-background-alt-rgb: 255 255 255;
+  --color-background-alt-hover-rgb: 255 255 255;
+  --color-border-rgb: 0 0 0 / 0.05;
+  --color-border-strong-rgb: 0 0 0 / 0.2;
+  --color-elevated-rgb: 255 255 255;
+  --color-floating-rgb: 255 255 255 / 0.7;
+  --color-inverse-rgb: 255 255 255;
+
+  /* Accent slot — wired but pointing to content (no accent in v1) */
+  --color-accent-rgb: var(--color-content-rgb);
+
+  /* Resolved tokens */
+  --color-content: rgb(var(--color-content-rgb));
+  --color-muted: rgb(var(--color-muted-rgb));
+  --color-background: rgb(var(--color-background-rgb));
+  --color-background-alt: rgb(var(--color-background-alt-rgb));
+  --color-background-alt-hover: rgb(var(--color-background-alt-hover-rgb));
+  --color-border: rgb(var(--color-border-rgb));
+  --color-border-strong: rgb(var(--color-border-strong-rgb));
+  --color-elevated: rgb(var(--color-elevated-rgb));
+  --color-floating: rgb(var(--color-floating-rgb));
+  --color-inverse: rgb(var(--color-inverse-rgb));
+  --color-accent: rgb(var(--color-accent-rgb));
+}
+
+@media (prefers-color-scheme: dark) {
+  :root {
+    --color-content-rgb: 255 255 255;
+    --color-muted-rgb: 255 255 255 / 0.7;
+    --color-background-rgb: 0 0 0;
+    --color-background-alt-rgb: 255 255 255 / 0.1;
+    --color-background-alt-hover-rgb: 255 255 255 / 0.15;
+    --color-border-rgb: 255 255 255 / 0.2;
+    --color-border-strong-rgb: 255 255 255 / 0.2;
+    --color-elevated-rgb: 31 31 31;
+    --color-floating-rgb: 64 64 64 / 0.6;
+    --color-inverse-rgb: 0 0 0;
+  }
+}

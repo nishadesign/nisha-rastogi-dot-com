@@ -6,3 +6,8 @@ out/
 *.tsbuildinfo
 next-env.d.ts
 .vercel
+
+# Local tooling (skills, agent configs)
+.agents/
+.claude/
+skills-lock.json

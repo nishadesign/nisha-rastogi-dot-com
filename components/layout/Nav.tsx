@@ -53,7 +53,7 @@ export function Nav() {
       <div className="flex items-center justify-between gap-6">
         <Link
           href="/"
-          className="text-body-large transition-opacity duration-300 inline-block"
+          className="text-body-large transition-opacity duration-150 inline-block"
           style={{
             color: "var(--color-muted)",
             opacity: scrolled && !mobileOpen ? 0 : 1,
@@ -72,7 +72,7 @@ export function Nav() {
         {/* Desktop / tablet pill nav */}
         <nav className="hidden tablet:block">
           <div
-            className="flex items-center gap-6 px-5 py-3 rounded-full backdrop-blur-[40px] transition-all duration-300"
+            className="flex items-center gap-6 px-5 py-3 rounded-full backdrop-blur-2xl transition-all duration-150"
             style={{ backgroundColor: "var(--color-floating)" }}
             onMouseEnter={() => setHovered(true)}
             onMouseLeave={() => setHovered(false)}
@@ -83,7 +83,7 @@ export function Nav() {
                 <Link
                   key={item.href}
                   href={item.href}
-                  className="text-body transition-all duration-300 overflow-hidden whitespace-nowrap"
+                  className="text-body transition-all duration-150 overflow-hidden whitespace-nowrap"
                   style={{
                     color: "var(--color-content)",
                     opacity: active ? 1 : expanded ? 0.3 : 0,
@@ -113,7 +113,7 @@ export function Nav() {
           aria-label={mobileOpen ? "Close menu" : "Open menu"}
           aria-expanded={mobileOpen}
           onClick={() => setMobileOpen((v) => !v)}
-          className="tablet:hidden relative z-50 flex items-center justify-center w-10 h-10 rounded-full backdrop-blur-[40px]"
+          className="tablet:hidden relative z-50 flex items-center justify-center size-10 rounded-full backdrop-blur-2xl transition-transform duration-150 ease-out active:scale-[0.97]"
           style={{
             backgroundColor: "var(--color-floating)",
             color: "var(--color-content)",
@@ -125,7 +125,9 @@ export function Nav() {
 
       {/* Mobile menu panel */}
       <div
-        className="tablet:hidden fixed inset-0 z-40 transition-opacity duration-300"
+        className={`tablet:hidden fixed inset-0 z-40 transition-opacity duration-150 ${
+          mobileOpen ? "ease-out" : "ease-in"
+        }`}
         style={{
           backgroundColor: "var(--color-background)",
           opacity: mobileOpen ? 1 : 0,

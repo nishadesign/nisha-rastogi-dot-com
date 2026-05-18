@@ -3,7 +3,13 @@ import { Media } from "@/components/project/Media";
 import { FadeIn } from "@/components/ui/FadeIn";
 import type { ProjectFrontmatter } from "@/types/project";
 
-export function ProjectCard({ project }: { project: ProjectFrontmatter }) {
+export function ProjectCard({
+  project,
+  animate = true,
+}: {
+  project: ProjectFrontmatter;
+  animate?: boolean;
+}) {
   const hasExternal = !!project.externalUrl && project.externalUrl.length > 0;
   const href = hasExternal ? project.externalUrl! : `/work/${project.slug}`;
   const isExternal = hasExternal;
@@ -25,11 +31,19 @@ export function ProjectCard({ project }: { project: ProjectFrontmatter }) {
         </Link>
       );
 
+  const Container = animate
+    ? ({ children }: { children: React.ReactNode }) => (
+        <FadeIn className="w-full">{children}</FadeIn>
+      )
+    : ({ children }: { children: React.ReactNode }) => (
+        <div className="w-full">{children}</div>
+      );
+
   return (
-    <FadeIn className="w-full">
+    <Container>
       <Wrapper>
         <div
-          className="relative w-full overflow-hidden block-radius transition-transform duration-300 ease-out group-hover:scale-[1.01]"
+          className="relative w-full overflow-hidden block-radius transition-transform duration-150 ease-out group-hover:scale-[1.01] group-active:scale-[0.97]"
           style={{
             backgroundColor: "var(--color-background-alt)",
             aspectRatio: 1.2,
@@ -47,7 +61,7 @@ export function ProjectCard({ project }: { project: ProjectFrontmatter }) {
           />
         </div>
         <div className="pt-4 flex flex-col gap-1">
-          <h3 className="transition-opacity group-hover:opacity-70">
+          <h3 className="transition-opacity duration-150 ease-out group-hover:opacity-60">
             {project.title}
           </h3>
           {project.tagline && (
@@ -60,6 +74,6 @@ export function ProjectCard({ project }: { project: ProjectFrontmatter }) {
           )}
         </div>
       </Wrapper>
-    </FadeIn>
+    </Container>
   );
 }

@@ -2,7 +2,11 @@ import { notFound } from "next/navigation";
 import type { Metadata } from "next";
 import { PageWrapper } from "@/components/layout/PageWrapper";
 import { TableOfContents } from "@/components/thoughts/TableOfContents";
+import { JsonLd } from "@/components/seo/JsonLd";
+import { profile } from "@/data/profile";
 import { getAllThoughtSlugs, getThoughtFrontmatter } from "@/lib/thoughts";
+
+const SITE_URL = "https://nisha-rastogi.com";
 
 type Props = { params: Promise<{ slug: string }> };
 
@@ -20,6 +24,15 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
     openGraph: {
       title: thought.title,
       description: thought.description,
+      type: "article",
+      publishedTime: thought.date,
+      images: ["/og-image.png"],
+    },
+    twitter: {
+      card: "summary_large_image",
+      title: thought.title,
+      description: thought.description,
+      images: ["/og-image.png"],
     },
   };
 }
@@ -37,8 +50,24 @@ export default async function ThoughtDetailPage({ params }: Props) {
     notFound();
   }
 
+  const articleSchema = {
+    "@context": "https://schema.org",
+    "@type": "Article",
+    headline: thought.title,
+    description: thought.description,
+    datePublished: thought.date,
+    author: {
+      "@type": "Person",
+      name: profile.name,
+      url: SITE_URL,
+    },
+    image: `${SITE_URL}/og-image.png`,
+    url: `${SITE_URL}/thoughts/${slug}`,
+  };
+
   return (
     <PageWrapper>
+      <JsonLd data={articleSchema} />
       <article className="pb-20 max-w-[1400px] mx-auto px-5 tablet:px-10">
         <div
           className="font-mono text-caption uppercase tracking-[-0.03em] pt-12 tablet:pt-20 pb-4"

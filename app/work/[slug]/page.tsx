@@ -16,13 +16,23 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
   const { slug } = await params;
   const project = getProjectFrontmatter(slug);
   if (!project) return {};
+  const heroIsImage =
+    project.hero?.src && /\.(png|jpe?g|webp|avif)$/i.test(project.hero.src);
+  const ogImage = heroIsImage ? project.hero!.src : "/og-image.png";
   return {
     title: project.title,
     description: project.description,
     openGraph: {
       title: project.title,
       description: project.description,
-      images: project.hero?.src ? [{ url: project.hero.src }] : [],
+      type: "article",
+      images: [{ url: ogImage }],
+    },
+    twitter: {
+      card: "summary_large_image",
+      title: project.title,
+      description: project.description,
+      images: [ogImage],
     },
   };
 }

@@ -13,6 +13,7 @@ const inter = Inter({
 });
 
 export const metadata: Metadata = {
+  metadataBase: new URL("https://nisha-rastogi.com"),
   title: {
     default: `${profile.name} — ${profile.title}`,
     template: `%s — ${profile.name}`,
@@ -22,6 +23,22 @@ export const metadata: Metadata = {
     title: `${profile.name} — ${profile.title}`,
     description: profile.positioning,
     type: "website",
+    url: "https://nisha-rastogi.com",
+    siteName: profile.name,
+    images: [
+      {
+        url: "/og-image.png",
+        width: 1200,
+        height: 630,
+        alt: `${profile.name} — ${profile.title}`,
+      },
+    ],
+  },
+  twitter: {
+    card: "summary_large_image",
+    title: `${profile.name} — ${profile.title}`,
+    description: profile.positioning,
+    images: ["/og-image.png"],
   },
 };
 

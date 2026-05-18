@@ -24,7 +24,7 @@ export default function ThoughtsIndexPage() {
                   className="block group h-full"
                 >
                   <div
-                    className="block-radius p-8 tablet:p-10 desktop:p-12 transition-transform duration-300 ease-out group-hover:scale-[1.01] flex flex-col gap-2 h-full"
+                    className="block-radius p-8 tablet:p-10 desktop:p-12 transition-transform duration-150 ease-out group-hover:scale-[1.01] group-active:scale-[0.97] flex flex-col gap-2 h-full"
                     style={{
                       backgroundColor: "var(--color-background-alt)",
                     }}

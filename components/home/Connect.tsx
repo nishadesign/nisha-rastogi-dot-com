@@ -17,7 +17,7 @@ export function Connect() {
         >
           <a
             href={`mailto:${profile.email}`}
-            className="underline underline-offset-[3px] transition-opacity hover:opacity-60"
+            className="underline underline-offset-[3px] transition-opacity duration-150 ease-out hover:opacity-60"
           >
             Email
           </a>
@@ -25,7 +25,7 @@ export function Connect() {
             href={profile.links.linkedin}
             target="_blank"
             rel="noreferrer"
-            className="underline underline-offset-[3px] transition-opacity hover:opacity-60"
+            className="underline underline-offset-[3px] transition-opacity duration-150 ease-out hover:opacity-60"
           >
             LinkedIn
           </a>
@@ -33,7 +33,7 @@ export function Connect() {
             href={profile.links.github}
             target="_blank"
             rel="noreferrer"
-            className="underline underline-offset-[3px] transition-opacity hover:opacity-60"
+            className="underline underline-offset-[3px] transition-opacity duration-150 ease-out hover:opacity-60"
           >
             GitHub
           </a>

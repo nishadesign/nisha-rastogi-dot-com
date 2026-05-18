@@ -14,7 +14,7 @@ export default function WorkIndexPage() {
     <PageWrapper>
       <section className="container-shell pt-12 tablet:pt-20 pb-20">
         <h1 className="pb-20 tablet:pb-32">Work</h1>
-        <div className="grid grid-cols-1 tablet:grid-cols-2 gap-5 tablet:gap-10">
+        <div className="grid grid-cols-1 tablet:grid-cols-2 gap-12 tablet:gap-16 desktop:gap-24">
           {projects.map((p) => (
             <ProjectCard key={p.slug} project={p} />
           ))}

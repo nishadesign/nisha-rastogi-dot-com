@@ -80,6 +80,13 @@ h5 {
   font-family: var(--font-heading);
   margin: 0;
   color: var(--color-content);
+  text-wrap: balance;
+}
+
+p,
+.text-body,
+.text-body-large {
+  text-wrap: pretty;
 }
 
 h1 {
@@ -261,7 +268,7 @@ h3.two-tone {
 }
 
 .page-transition {
-  animation: fadeInUp 0.5s var(--ease-out) both;
+  animation: fadeInUp 300ms var(--ease-out) both;
 }
 
 /* Reduced motion */
@@ -385,6 +392,16 @@ h3.two-tone {
 @media (min-width: 1280px) {
   .block-radius {
     border-radius: var(--block-radius-desktop);
+  }
+}
+
+/* Disable hover effects on touch devices to prevent sticky :hover after tap */
+@media (hover: none) {
+  .group:hover .group-hover\:scale-\[1\.01\] {
+    transform: none;
+  }
+  .group:hover .group-hover\:opacity-60 {
+    opacity: 1;
   }
 }
 

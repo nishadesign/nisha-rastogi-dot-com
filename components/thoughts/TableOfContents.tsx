@@ -78,7 +78,7 @@ export function TableOfContents() {
           >
             <a
               href={`#${h.id}`}
-              className="text-caption leading-tight transition-all duration-200 inline-block"
+              className="text-caption leading-tight transition-colors duration-150 ease-out inline-block"
               style={{
                 color:
                   activeId === h.id

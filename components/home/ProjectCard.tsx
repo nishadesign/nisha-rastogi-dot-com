@@ -51,9 +51,9 @@ export function ProjectCard({
         >
           {(() => {
             const cardMedia = project.cardHero ?? project.hero;
-            return cardMedia ? (
-              <Media src={cardMedia.src} alt={cardMedia.alt} fit="contain" />
-            ) : null;
+            if (!cardMedia) return null;
+            const fit = project.cardHero?.fit ?? "contain";
+            return <Media src={cardMedia.src} alt={cardMedia.alt} fit={fit} />;
           })()}
           <div
             className="absolute inset-0 z-10 ring-1 ring-inset pointer-events-none block-radius"

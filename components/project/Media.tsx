@@ -1,7 +1,7 @@
 "use client";
 
 import Image from "next/image";
-import { useEffect, useRef } from "react";
+import { useEffect, useRef, useState } from "react";
 
 const VIDEO_EXT = /\.(mp4|webm|mov)$/i;
 
@@ -21,6 +21,7 @@ export function Media({
   const isVideo = VIDEO_EXT.test(src);
   const fitClass = fit === "contain" ? "object-contain" : "object-cover";
   const videoRef = useRef<HTMLVideoElement>(null);
+  const [shouldLoad, setShouldLoad] = useState(false);
 
   useEffect(() => {
     if (!isVideo) return;
@@ -30,12 +31,13 @@ export function Media({
     const observer = new IntersectionObserver(
       ([entry]) => {
         if (entry.isIntersecting) {
+          setShouldLoad(true);
           el.play().catch(() => {});
         } else {
           el.pause();
         }
       },
-      { threshold: 0.25 }
+      { threshold: 0.25, rootMargin: "200px" }
     );
 
     observer.observe(el);
@@ -46,13 +48,13 @@ export function Media({
     return (
       <video
         ref={videoRef}
-        className={`block w-full h-full ${fitClass}`}
-        src={src}
+        className={`absolute inset-0 block w-full h-full ${fitClass}`}
+        src={shouldLoad ? src : undefined}
         poster={poster}
         loop
         muted
         playsInline
-        preload="auto"
+        preload="metadata"
       />
     );
   }

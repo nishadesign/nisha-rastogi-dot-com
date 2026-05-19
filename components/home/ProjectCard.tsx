@@ -53,7 +53,14 @@ export function ProjectCard({
             const cardMedia = project.cardHero ?? project.hero;
             if (!cardMedia) return null;
             const fit = project.cardHero?.fit ?? "contain";
-            return <Media src={cardMedia.src} alt={cardMedia.alt} fit={fit} />;
+            return (
+              <Media
+                src={cardMedia.src}
+                alt={cardMedia.alt}
+                poster={project.cardHero?.poster}
+                fit={fit}
+              />
+            );
           })()}
           <div
             className="absolute inset-0 z-10 ring-1 ring-inset pointer-events-none block-radius"

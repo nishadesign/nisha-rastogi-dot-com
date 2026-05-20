@@ -59,6 +59,7 @@ export function ProjectCard({
                 alt={cardMedia.alt}
                 poster={project.cardHero?.poster}
                 fit={fit}
+                eager={project.cardHero?.eager}
               />
             );
           })()}

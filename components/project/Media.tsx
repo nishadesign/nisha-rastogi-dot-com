@@ -11,22 +11,29 @@ export function Media({
   poster,
   priority,
   fit = "cover",
+  eager = false,
 }: {
   src: string;
   alt?: string;
   poster?: string;
   priority?: boolean;
   fit?: "cover" | "contain";
+  eager?: boolean;
 }) {
   const isVideo = VIDEO_EXT.test(src);
   const fitClass = fit === "contain" ? "object-contain" : "object-cover";
   const videoRef = useRef<HTMLVideoElement>(null);
-  const [shouldLoad, setShouldLoad] = useState(false);
+  const [shouldLoad, setShouldLoad] = useState(eager);
 
   useEffect(() => {
     if (!isVideo) return;
     const el = videoRef.current;
     if (!el) return;
+
+    if (eager) {
+      el.play().catch(() => {});
+      return;
+    }
 
     const observer = new IntersectionObserver(
       ([entry]) => {
@@ -42,7 +49,7 @@ export function Media({
 
     observer.observe(el);
     return () => observer.disconnect();
-  }, [isVideo]);
+  }, [isVideo, eager]);
 
   if (isVideo) {
     return (
@@ -54,7 +61,8 @@ export function Media({
         loop
         muted
         playsInline
-        preload="metadata"
+        preload={eager ? "auto" : "metadata"}
+        autoPlay={eager}
       />
     );
   }

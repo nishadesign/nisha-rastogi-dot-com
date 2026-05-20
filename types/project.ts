@@ -17,6 +17,7 @@ export type ProjectFrontmatter = {
     type?: "image" | "video";
     fit?: "cover" | "contain";
     poster?: string;
+    eager?: boolean;
   };
   order?: number;
   featured?: boolean;

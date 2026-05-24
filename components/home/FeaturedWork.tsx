@@ -4,6 +4,9 @@ import type { ProjectFrontmatter } from "@/types/project";
 export function FeaturedWork({ projects }: { projects: ProjectFrontmatter[] }) {
   return (
     <section className="py-8 tablet:py-12 desktop:py-20">
+      <h6 className="px-5 tablet:px-10 pb-6 tablet:pb-8">
+        Selected work
+      </h6>
       <div
         className="overflow-x-auto scroll-smooth snap-x snap-mandatory hide-scrollbar featured-scroll"
         style={{

@@ -37,25 +37,27 @@ export function Bio() {
           </p>
           <p
             className="text-body-large"
-            style={{ color: "var(--color-muted)" }}
+            style={{ color: "var(--color-content)" }}
           >
             {profile.connect.paragraph}
           </p>
-          <div
-            className="flex flex-wrap gap-6 text-body"
-            style={{ color: "var(--color-content)" }}
-          >
+          <div className="flex flex-wrap items-center gap-6 text-body pt-2">
             <a
               href={`mailto:${profile.email}`}
-              className="underline underline-offset-[3px] transition-opacity duration-150 ease-out hover:opacity-60"
+              className="inline-flex items-center rounded-full px-5 py-3 transition-opacity duration-150 ease-out hover:opacity-80"
+              style={{
+                backgroundColor: "var(--color-content)",
+                color: "var(--color-inverse)",
+              }}
             >
-              Email
+              Get in touch
             </a>
             <a
               href={profile.links.linkedin}
               target="_blank"
               rel="noreferrer"
               className="underline underline-offset-[3px] transition-opacity duration-150 ease-out hover:opacity-60"
+              style={{ color: "var(--color-content)" }}
             >
               LinkedIn
             </a>
@@ -64,6 +66,7 @@ export function Bio() {
               target="_blank"
               rel="noreferrer"
               className="underline underline-offset-[3px] transition-opacity duration-150 ease-out hover:opacity-60"
+              style={{ color: "var(--color-content)" }}
             >
               GitHub
             </a>

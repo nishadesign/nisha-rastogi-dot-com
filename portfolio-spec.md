@@ -31,7 +31,7 @@ Raw values only. No semantics.
   --color-white: #fff;
 
   /* Type scale */
-  --font-body: "Inter", system-ui, sans-serif;
+  --font-body: -apple-system, BlinkMacSystemFont, "SF Pro Text", "SF Pro", system-ui, sans-serif;
   --font-heading: "Inter Display", "Inter", system-ui, sans-serif;
   --font-mono: "SF Mono", "Fira Code", ui-monospace, monospace;
 
@@ -105,7 +105,7 @@ Component-specific, optional. Only when a component needs its own token (e.g., b
 
 ## 3. Typography (gabriel-exact)
 
-Heading family: **Inter Display** (variable, free, Google Fonts). Body: **Inter**. Mono: system mono stack.
+Heading family: **Inter Display** (variable, free, Google Fonts). Body: **SF Pro** (Apple system stack — falls back to system-ui on non-Apple devices). Mono: system mono stack.
 
 | Tag | Mobile (≤810px) | Tablet (810px+) | Desktop (1280px+) | Tracking | Weight | Line-height |
 |---|---|---|---|---|---|---|

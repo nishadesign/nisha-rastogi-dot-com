@@ -4,7 +4,7 @@
 @import "../styles/tokens/components.css";
 
 @theme {
-  --font-body: "Inter", system-ui, sans-serif;
+  --font-body: -apple-system, BlinkMacSystemFont, "SF Pro Text", "SF Pro", system-ui, sans-serif;
   --font-heading: "Inter Display", "Inter", system-ui, sans-serif;
   --font-mono: "SF Mono", "Fira Code", ui-monospace, monospace;
 

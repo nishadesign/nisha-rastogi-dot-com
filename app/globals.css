@@ -380,6 +380,15 @@ h3.two-tone {
   }
 }
 
+/* Mute prose inside text Blocks; headings, links, and explicitly-styled
+   children (e.g. Impact stat numbers) keep their own color. */
+.block-text p,
+.block-text ul,
+.block-text ol,
+.block-text li {
+  color: var(--color-muted);
+}
+
 /* Bento block radius (responsive) */
 .block-radius {
   border-radius: var(--block-radius-mobile);

@@ -4,7 +4,11 @@ import { PageWrapper } from "@/components/layout/PageWrapper";
 import { TableOfContents } from "@/components/thoughts/TableOfContents";
 import { JsonLd } from "@/components/seo/JsonLd";
 import { profile } from "@/data/profile";
-import { getAllThoughtSlugs, getThoughtFrontmatter } from "@/lib/thoughts";
+import {
+  getAllThoughtSlugs,
+  getThoughtFrontmatter,
+  thoughtHasHeadings,
+} from "@/lib/thoughts";
 
 const SITE_URL = "https://nisha-rastogi.com";
 
@@ -41,6 +45,7 @@ export default async function ThoughtDetailPage({ params }: Props) {
   const { slug } = await params;
   const thought = getThoughtFrontmatter(slug);
   if (!thought) notFound();
+  const hasToc = thoughtHasHeadings(slug);
 
   let MDXContent;
   try {
@@ -76,12 +81,18 @@ export default async function ThoughtDetailPage({ params }: Props) {
           {thought.date}
         </div>
         <h1 className="pb-10 tablet:pb-16">{thought.title}</h1>
-        <div className="grid grid-cols-1 desktop:grid-cols-[200px_1fr] gap-12 desktop:gap-20 items-start">
-          <TableOfContents />
+        {hasToc ? (
+          <div className="grid grid-cols-1 desktop:grid-cols-[200px_1fr] gap-12 desktop:gap-20 items-start">
+            <TableOfContents />
+            <div className="prose-thoughts flex flex-col gap-8 tablet:gap-10 max-w-[800px]">
+              <MDXContent />
+            </div>
+          </div>
+        ) : (
           <div className="prose-thoughts flex flex-col gap-8 tablet:gap-10 max-w-[800px]">
             <MDXContent />
           </div>
-        </div>
+        )}
       </article>
     </PageWrapper>
   );

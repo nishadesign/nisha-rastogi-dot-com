@@ -56,7 +56,7 @@ export function Block({
 
   return (
     <motion.div className={`${colClass} ${rowClass}`} {...fadeInUp}>
-      <div className="flex flex-col gap-4">{children}</div>
+      <div className="flex flex-col gap-4 block-text">{children}</div>
     </motion.div>
   );
 }

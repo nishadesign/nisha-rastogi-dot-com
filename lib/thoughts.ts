@@ -21,6 +21,14 @@ export function getThoughtFrontmatter(slug: string): ThoughtFrontmatter | null {
   return { slug, ...data } as ThoughtFrontmatter;
 }
 
+export function thoughtHasHeadings(slug: string): boolean {
+  const filePath = path.join(THOUGHTS_DIR, `${slug}.mdx`);
+  if (!fs.existsSync(filePath)) return false;
+  const raw = fs.readFileSync(filePath, "utf8");
+  const { content } = matter(raw);
+  return /^#{2,3}\s/m.test(content);
+}
+
 export function getAllThoughts(): ThoughtFrontmatter[] {
   return getAllThoughtSlugs()
     .map(getThoughtFrontmatter)

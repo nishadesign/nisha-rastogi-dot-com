@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import { PageWrapper } from "@/components/layout/PageWrapper";
 import { ProjectCard } from "@/components/home/ProjectCard";
+import { FadeIn } from "@/components/ui/FadeIn";
 import { getAllProjects } from "@/lib/projects";
 
 export const metadata: Metadata = {
@@ -16,7 +17,9 @@ export default function WorkIndexPage() {
         <h1 className="pb-20 tablet:pb-32">Work</h1>
         <div className="grid grid-cols-1 tablet:grid-cols-2 gap-12 tablet:gap-16 desktop:gap-24">
           {projects.map((p) => (
-            <ProjectCard key={p.slug} project={p} />
+            <FadeIn key={p.slug} className="w-full">
+              <ProjectCard project={p} />
+            </FadeIn>
           ))}
         </div>
       </section>

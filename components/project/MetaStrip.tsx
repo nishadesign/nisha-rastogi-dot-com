@@ -46,7 +46,7 @@ export function MetaStrip({ team, date, releaseNotes }: MetaStripProps) {
             href={releaseNotes.href}
             target="_blank"
             rel="noreferrer"
-            className="inline-flex items-center gap-1 px-4 py-2 rounded-full transition-opacity duration-150 ease-out hover:opacity-60 text-caption"
+            className="inline-flex items-center gap-1 px-4 py-2 rounded-full transition-[opacity,transform] duration-150 ease-out hover:opacity-60 active:scale-[0.97] text-caption"
             style={{
               backgroundColor: "var(--color-background-alt)",
               color: "var(--color-content)",

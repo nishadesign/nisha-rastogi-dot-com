@@ -1,0 +1,15 @@
+---
+title: Writing portfolio case studies
+slug: writing-portfolio-case-studies
+date: "2026-05"
+description: There's got to be a better way of writing portfolio case studies. Here's my current method.
+---
+### Using data.json
+For a long time, my portfolio had a small custom CMS. I'd edit case studies through a form — title here, description there, upload an image and export the result to a `data.json` file the site read from. It felt clean. It also quietly became the most annoying part of the whole project. Every time I wanted a new layout idea, I had to extend the schema, update the editor UI, update the renderer, and migrate the old entries. The editor I'd built to make writing easier was the thing slowing writing down.
+
+### With MDX
+I rebuilt the portfolio in MDX and the whole problem feels more streamlined now. Now each case study is one file. The top of the file has frontmatter — title, hero image, date, whether it's featured — and that feeds the home grid, the work index, and the SEO metadata. I never touch any of that plumbing. The body of the case study is just three components I composed once and reuse everywhere: `Block` for layout, `Media` for images and video, `SectionBreak` for rhythm.
+
+The lesson I keep relearning: the cleanest authoring tool is usually the one that doesn't exist yet. Every abstraction you build to make writing easier has a maintenance cost.
+
+I am curious to learn if people have other efficient ways of writing portfolio case studies!

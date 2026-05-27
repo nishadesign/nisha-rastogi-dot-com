@@ -2,21 +2,15 @@
 
 import type { ReactNode } from "react";
 import { motion } from "motion/react";
+import { fadeInUp } from "@/lib/motion";
 
 type BlockProps = {
   children: ReactNode;
   colSpan?: 1 | 2 | 3 | 4 | 5 | 6;
   rowSpan?: 1 | 2 | 3 | 4;
   variant?: "text" | "media";
-  aspectRatio?: number; // for media blocks; e.g. 1.6
+  aspectRatio?: number;
 };
-
-const ENTER = {
-  initial: { opacity: 0, y: 24 },
-  whileInView: { opacity: 1, y: 0 },
-  viewport: { once: true, margin: "0px 0px -10% 0px" },
-  transition: { duration: 0.4, ease: [0.23, 1, 0.32, 1] },
-} as const;
 
 const COL_CLASSES: Record<number, string> = {
   1: "desktop:col-span-1",
@@ -46,7 +40,7 @@ export function Block({
 
   if (variant === "media") {
     return (
-      <motion.div className={`${colClass} ${rowClass}`} {...ENTER}>
+      <motion.div className={`${colClass} ${rowClass}`} {...fadeInUp}>
         <div
           className="relative w-full overflow-hidden block-radius"
           style={{
@@ -61,8 +55,8 @@ export function Block({
   }
 
   return (
-    <motion.div className={`${colClass} ${rowClass}`} {...ENTER}>
-      <div className="h-full">{children}</div>
+    <motion.div className={`${colClass} ${rowClass}`} {...fadeInUp}>
+      <div className="flex flex-col gap-4 block-text">{children}</div>
     </motion.div>
   );
 }

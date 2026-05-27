@@ -5,6 +5,7 @@ import Image from "next/image";
 import Link from "next/link";
 import { Heart, Plane, Briefcase } from "lucide-react";
 import { motion } from "motion/react";
+import { fadeInUp } from "@/lib/motion";
 import type { TimelineCategory, TimelineEntry } from "@/data/timeline";
 
 const CATEGORY_ICONS: Record<TimelineCategory, typeof Heart> = {
@@ -104,10 +105,7 @@ export function Timeline({ entries }: { entries: TimelineEntry[] }) {
             <motion.div
               key={`${entry.date}-${entry.title}-${i}`}
               className="flex gap-6 tablet:gap-10 items-start"
-              initial={{ opacity: 0, y: 24 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true, margin: "0px 0px -10% 0px" }}
-              transition={{ duration: 0.4, ease: [0.23, 1, 0.32, 1] }}
+              {...fadeInUp}
             >
               <div
                 className="shrink-0 pt-1 relative z-10"

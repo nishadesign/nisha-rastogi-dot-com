@@ -21,7 +21,7 @@ export function FeaturedWork({ projects }: { projects: ProjectFrontmatter[] }) {
               key={p.slug}
               className="snap-start shrink-0 w-[80vw] tablet:w-[42vw] desktop:w-[42vw] max-w-[640px]"
             >
-              <ProjectCard project={p} animate={false} />
+              <ProjectCard project={p} />
             </div>
           ))}
           <div aria-hidden className="shrink-0 w-5 tablet:w-10" />

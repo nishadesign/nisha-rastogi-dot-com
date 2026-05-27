@@ -44,7 +44,7 @@ export function Bio() {
           <div className="flex flex-wrap items-center gap-6 text-body pt-2">
             <a
               href={`mailto:${profile.email}`}
-              className="inline-flex items-center rounded-full px-5 py-3 transition-opacity duration-150 ease-out hover:opacity-80"
+              className="inline-flex items-center rounded-full px-5 py-3 transition-[opacity,transform] duration-150 ease-out hover:opacity-80 active:scale-[0.97]"
               style={{
                 backgroundColor: "var(--color-content)",
                 color: "var(--color-inverse)",

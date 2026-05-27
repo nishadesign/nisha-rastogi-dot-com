@@ -4,9 +4,11 @@
 @import "../styles/tokens/components.css";
 
 @theme {
-  --font-body: "Inter", system-ui, sans-serif;
+  --font-body: -apple-system, BlinkMacSystemFont, "SF Pro Text", "SF Pro", system-ui, sans-serif;
   --font-heading: "Inter Display", "Inter", system-ui, sans-serif;
   --font-mono: "SF Mono", "Fira Code", ui-monospace, monospace;
+
+  --ease-out: cubic-bezier(0.23, 1, 0.32, 1);
 
   --color-content: rgb(var(--color-content-rgb));
   --color-muted: rgb(var(--color-muted-rgb));
@@ -376,6 +378,15 @@ h3.two-tone {
     padding-left: var(--container-px-tablet);
     scroll-padding-left: var(--container-px-tablet);
   }
+}
+
+/* Mute prose inside text Blocks; headings, links, and explicitly-styled
+   children (e.g. Impact stat numbers) keep their own color. */
+.block-text p,
+.block-text ul,
+.block-text ol,
+.block-text li {
+  color: var(--color-muted);
 }
 
 /* Bento block radius (responsive) */

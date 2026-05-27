@@ -62,7 +62,7 @@ export function Block({
 
   return (
     <motion.div className={`${colClass} ${rowClass}`} {...ENTER}>
-      <div className="h-full">{children}</div>
+      <div className="flex flex-col gap-4">{children}</div>
     </motion.div>
   );
 }

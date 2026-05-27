@@ -8,6 +8,8 @@
   --font-heading: "Inter Display", "Inter", system-ui, sans-serif;
   --font-mono: "SF Mono", "Fira Code", ui-monospace, monospace;
 
+  --ease-out: cubic-bezier(0.23, 1, 0.32, 1);
+
   --color-content: rgb(var(--color-content-rgb));
   --color-muted: rgb(var(--color-muted-rgb));
   --color-background: rgb(var(--color-background-rgb));

@@ -1,3 +1,4 @@
+import Image from "next/image";
 import { notFound } from "next/navigation";
 import type { Metadata } from "next";
 import { PageWrapper } from "@/components/layout/PageWrapper";
@@ -68,15 +69,29 @@ export default async function ProjectDetailPage({ params }: Props) {
             releaseNotes={project.releaseNotes}
           />
         </div>
-        {project.hero?.src && (
-          <div className="relative w-full overflow-hidden block-radius mb-8 tablet:mb-12 desktop:mb-20 aspect-[16/10]">
-            <Media
-              src={project.hero.src}
-              alt={project.hero.alt}
-              priority
-            />
-          </div>
-        )}
+        {project.hero?.src &&
+          (slug === "multi-language-agents" ? (
+            <div className="w-full mb-8 tablet:mb-12 desktop:mb-20">
+              <Image
+                src={project.hero.src}
+                alt={project.hero.alt}
+                width={6080}
+                height={3488}
+                sizes="(min-width: 1280px) 1320px, 100vw"
+                className="w-full h-auto"
+                style={{ background: "transparent" }}
+                priority
+              />
+            </div>
+          ) : (
+            <div className="relative w-full overflow-hidden block-radius mb-8 tablet:mb-12 desktop:mb-20 aspect-[16/10]">
+              <Media
+                src={project.hero.src}
+                alt={project.hero.alt}
+                priority
+              />
+            </div>
+          ))}
         <ContentGrid>
           <MDXContent />
         </ContentGrid>

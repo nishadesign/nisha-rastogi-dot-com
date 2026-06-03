@@ -1,5 +1,6 @@
 import Link from "next/link";
 import { Media } from "@/components/project/Media";
+import { MultiLanguageCard } from "@/components/home/MultiLanguageCard";
 import type { ProjectFrontmatter } from "@/types/project";
 
 export function ProjectCard({ project }: { project: ProjectFrontmatter }) {
@@ -7,6 +8,7 @@ export function ProjectCard({ project }: { project: ProjectFrontmatter }) {
   const href = hasExternal ? project.externalUrl! : `/work/${project.slug}`;
   const cardMedia = project.cardHero ?? project.hero;
   const fit = project.cardHero?.fit ?? "contain";
+  const isMultiLang = project.slug === "multi-language-agents";
 
   const inner = (
     <>
@@ -17,14 +19,18 @@ export function ProjectCard({ project }: { project: ProjectFrontmatter }) {
           aspectRatio: 1.2,
         }}
       >
-        {cardMedia && (
-          <Media
-            src={cardMedia.src}
-            alt={cardMedia.alt}
-            poster={project.cardHero?.poster}
-            fit={fit}
-            eager={project.cardHero?.eager}
-          />
+        {isMultiLang ? (
+          <MultiLanguageCard />
+        ) : (
+          cardMedia && (
+            <Media
+              src={cardMedia.src}
+              alt={cardMedia.alt}
+              poster={project.cardHero?.poster}
+              fit={fit}
+              eager={project.cardHero?.eager}
+            />
+          )
         )}
       </div>
       <div className="pt-4 flex flex-col gap-1">

@@ -2,7 +2,7 @@ import { profile } from "@/data/profile";
 
 export function Footer() {
   return (
-    <footer className="container-shell py-20">
+    <footer className="container-shell pt-20 pb-32 tablet:pb-40">
       <div
         className="flex flex-wrap gap-6 text-caption"
         style={{ color: "var(--color-muted)" }}

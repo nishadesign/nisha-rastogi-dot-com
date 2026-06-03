@@ -39,6 +39,9 @@ export function Nav() {
     };
   }, [mobileOpen]);
 
+  // Hide global nav on bento exploration (it has its own bottom nav)
+  if (pathname === "/lab/bento") return null;
+
   const isActive = (href: string) =>
     href === "/" ? pathname === "/" : pathname.startsWith(href);
 

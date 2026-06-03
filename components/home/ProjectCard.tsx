@@ -16,7 +16,7 @@ export function ProjectCard({ project }: { project: ProjectFrontmatter }) {
         className="relative w-full overflow-hidden block-radius transition-transform duration-150 ease-out group-hover:scale-[1.01] group-active:scale-[0.99]"
         style={{
           backgroundColor: "var(--color-background-alt)",
-          aspectRatio: 1.2,
+          aspectRatio: 1.6,
         }}
       >
         {isMultiLang ? (

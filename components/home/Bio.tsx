@@ -1,5 +1,6 @@
 import Image from "next/image";
 import { FadeIn } from "@/components/ui/FadeIn";
+import { Experience } from "./Experience";
 import { profile } from "@/data/profile";
 
 export function Bio() {
@@ -35,9 +36,10 @@ export function Bio() {
             with friends — which lately has mostly turned into vibe-coding
             hangs. Not complaining ;)
           </p>
+          <Experience />
           <p
-            className="text-body-large"
-            style={{ color: "var(--color-content)" }}
+            className="text-body-large pt-6 tablet:pt-8"
+            style={{ color: "var(--color-muted)" }}
           >
             {profile.connect.paragraph}
           </p>

@@ -26,10 +26,6 @@ export function ProjectCard({ project }: { project: ProjectFrontmatter }) {
             eager={project.cardHero?.eager}
           />
         )}
-        <div
-          className="absolute inset-0 z-10 ring-1 ring-inset pointer-events-none block-radius"
-          style={{ "--tw-ring-color": "var(--color-border)" } as React.CSSProperties}
-        />
       </div>
       <div className="pt-4 flex flex-col gap-1">
         <h3 className="transition-opacity duration-150 ease-out group-hover:opacity-60">

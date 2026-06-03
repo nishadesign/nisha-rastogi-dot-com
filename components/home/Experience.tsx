@@ -8,10 +8,10 @@ export function Experience() {
         {experience.map((entry) => (
           <li
             key={`${entry.start}-${entry.company}`}
-            className="grid grid-cols-[8.5rem_1fr] gap-4 items-baseline"
+            className="grid grid-cols-[10rem_1fr] gap-4 items-baseline"
           >
             <span
-              className="font-mono text-caption uppercase tracking-[-0.03em]"
+              className="font-mono text-caption uppercase tracking-[-0.03em] whitespace-nowrap"
               style={{ color: "var(--color-muted)" }}
             >
               {entry.start} &mdash; {entry.end}

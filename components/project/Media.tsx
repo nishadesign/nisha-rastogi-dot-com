@@ -39,7 +39,11 @@ export function Media({
       ([entry]) => {
         if (entry.isIntersecting) {
           setShouldLoad(true);
-          el.play().catch(() => {});
+          // If the source is already loaded, play now. Otherwise the
+          // onLoadedData handler on the <video> will start playback.
+          if (el.readyState >= 2) {
+            el.play().catch(() => {});
+          }
         } else {
           el.pause();
         }
@@ -63,6 +67,12 @@ export function Media({
         playsInline
         preload={eager ? "auto" : "metadata"}
         autoPlay={eager}
+        onLoadedData={(e) => {
+          // Once the source is buffered, start playing if the element is
+          // still in view (handles the observer-fires-before-load race).
+          const v = e.currentTarget;
+          v.play().catch(() => {});
+        }}
       />
     );
   }

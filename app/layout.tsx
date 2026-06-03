@@ -1,7 +1,8 @@
 import type { Metadata } from "next";
 import { Inter } from "next/font/google";
 import { Analytics } from "@vercel/analytics/next";
-import { Nav } from "@/components/layout/Nav";
+import { BottomNav } from "@/components/layout/BottomNav";
+import { TopBrand } from "@/components/layout/TopBrand";
 import { Footer } from "@/components/layout/Footer";
 import { profile } from "@/data/profile";
 import "./globals.css";
@@ -50,10 +51,10 @@ export default function RootLayout({
   return (
     <html lang="en" className={inter.variable}>
       <body>
-        <Nav />
-        <div className="pt-20 tablet:pt-24" />
+        <TopBrand />
         {children}
         <Footer />
+        <BottomNav />
         <Analytics />
       </body>
     </html>

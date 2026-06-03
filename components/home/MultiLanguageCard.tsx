@@ -43,8 +43,8 @@ export type MultiLanguageCardConfig = {
 export const DEFAULT_CONFIG: MultiLanguageCardConfig = {
   arcCenterXRatio: 0.94,
   arcCenterYRatio: 0.46,
-  radiusMultiplier: 0.6,
-  radiusMin: 340,
+  radiusMultiplier: 0.85,
+  radiusMin: 160,
   angularSpacing: 0.22,
   fadeRangeRatio: 0.42,
   fadeHold: 0.65,
@@ -119,8 +119,11 @@ export function MultiLanguageCard({
 
   const cx = size.w * config.arcCenterXRatio;
   const cy = size.h * config.arcCenterYRatio;
+  // Scale radius with the card's smaller dimension so the arc shrinks on
+  // smaller cards (mobile carousel, narrow viewports). radiusMin is a floor
+  // for very tiny cards; once the card is large enough, the multiplier wins.
   const radius = Math.max(
-    config.radiusMin,
+    Math.min(config.radiusMin, Math.min(size.w, size.h) * 0.7),
     Math.min(size.w, size.h) * config.radiusMultiplier
   );
 

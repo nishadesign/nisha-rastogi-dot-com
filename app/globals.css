@@ -42,25 +42,25 @@ html {
 
 html,
 body {
-  font-size: 16px;
+  font-size: 14px;
 }
 
 body {
   letter-spacing: -0.01em;
   min-height: 100vh;
   margin: 0;
-  line-height: 1.4;
+  line-height: 1.5;
 }
 
 @media (min-width: 810px) {
   body {
-    font-size: 18px;
+    font-size: 15px;
   }
 }
 
 @media (min-width: 1280px) {
   body {
-    font-size: 20px;
+    font-size: 16px;
   }
 }
 
@@ -91,98 +91,74 @@ p,
   text-wrap: pretty;
 }
 
-h1 {
-  letter-spacing: -0.06em;
-  font-size: 34px;
+/* Page header */
+h1,
+.impact-stat {
+  font-size: clamp(28px, 3.5vw, 48px);
+  font-weight: 400;
+  line-height: 1.15;
+  letter-spacing: -0.025em;
+}
+
+/* Hero — larger than h1, used for the home/bento landing headline */
+.hero-h1 {
+  font-size: clamp(40px, 6vw, 80px);
   font-weight: 400;
   line-height: 1.1;
+  letter-spacing: -0.03em;
 }
 
-@media (min-width: 810px) {
-  h1 {
-    font-size: 60px;
-  }
+.impact-stat {
+  font-family: var(--font-heading);
 }
 
-@media (min-width: 1280px) {
-  h1 {
-    font-size: 100px;
-  }
-}
-
-/* Hero H1 — fluid, fits one line on tablet+, wraps on mobile */
-.hero-h1 {
-  font-size: clamp(36px, 5.4vw, 140px);
-  line-height: 1.05;
-}
-
-@media (min-width: 810px) {
-  .hero-h1 {
-    white-space: nowrap;
-    line-height: 1;
-  }
-}
-
+/* Section header */
 h2 {
-  letter-spacing: -0.05em;
-  font-size: 28px;
-  font-weight: 400;
-  line-height: 1.3;
-}
-
-@media (min-width: 810px) {
-  h2 {
-    font-size: 36px;
-  }
-}
-
-@media (min-width: 1280px) {
-  h2 {
-    font-size: 48px;
-  }
-}
-
-h3 {
-  letter-spacing: -0.045em;
-  font-size: 22px;
-  font-weight: 400;
-  line-height: 1.3;
-}
-
-@media (min-width: 810px) {
-  h3 {
-    font-size: 26px;
-  }
-}
-
-@media (min-width: 1280px) {
-  h3 {
-    font-size: 30px;
-  }
-}
-
-h4 {
-  letter-spacing: -0.3px;
-  font-size: clamp(20px, 2vw, 24px);
-  font-weight: 400;
-  line-height: 1.3;
-}
-
-h5 {
-  font-size: 20px;
-  letter-spacing: -0.02em;
+  font-size: 18px;
   font-weight: 500;
   line-height: 1.3;
+  letter-spacing: -0.02em;
 }
 
+@media (min-width: 810px) {
+  h2 {
+    font-size: 20px;
+  }
+}
+
+@media (min-width: 1280px) {
+  h2 {
+    font-size: 22px;
+  }
+}
+
+/* Card header */
+h3,
+h4,
+h5 {
+  font-size: 18px;
+  font-weight: 500;
+  line-height: 1.3;
+  letter-spacing: -0.02em;
+}
+
+@media (min-width: 810px) {
+  h3,
+  h4,
+  h5 {
+    font-size: 20px;
+  }
+}
+
+/* Eyebrow */
 h6 {
   font-family: var(--font-mono);
   text-transform: uppercase;
-  letter-spacing: -0.03em;
   margin: 0;
   font-size: 13px;
   font-weight: 400;
   line-height: 1.2;
+  letter-spacing: -0.03em;
   color: var(--color-muted);
 }
 
@@ -206,48 +182,27 @@ h3.two-tone {
   color: var(--color-muted);
 }
 
-/* Body text utilities */
-.text-body {
-  font-size: 16px;
-  line-height: 1.4;
-}
-
-@media (min-width: 810px) {
-  .text-body {
-    font-size: 18px;
-  }
-}
-
-@media (min-width: 1280px) {
-  .text-body {
-    font-size: 20px;
-  }
-}
-
-.text-body-large {
-  font-size: 18px;
-  line-height: 1.4;
-}
-
-@media (min-width: 810px) {
-  .text-body-large {
-    font-size: 22px;
-  }
-}
-
-@media (min-width: 1280px) {
-  .text-body-large {
-    font-size: 26px;
-  }
-}
-
+/* Body */
+.text-body,
+.text-body-large,
 .text-caption {
   font-size: 14px;
+  line-height: 1.5;
 }
 
 @media (min-width: 810px) {
+  .text-body,
+  .text-body-large,
   .text-caption {
     font-size: 15px;
+  }
+}
+
+@media (min-width: 1280px) {
+  .text-body,
+  .text-body-large,
+  .text-caption {
+    font-size: 16px;
   }
 }
 

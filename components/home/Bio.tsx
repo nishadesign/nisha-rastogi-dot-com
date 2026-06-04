@@ -1,4 +1,7 @@
+"use client";
+
 import Image from "next/image";
+import { motion } from "motion/react";
 import { FadeIn } from "@/components/ui/FadeIn";
 import { Experience } from "./Experience";
 import { profile } from "@/data/profile";
@@ -7,7 +10,13 @@ export function Bio() {
   return (
     <section className="px-5 tablet:px-10 py-16 tablet:py-20 desktop:py-32">
       <FadeIn className="grid grid-cols-1 desktop:grid-cols-[800px_1fr] gap-8 tablet:gap-12 desktop:gap-20 items-start">
-        <div className="relative w-full max-w-[800px] overflow-hidden block-radius aspect-[4/5]">
+        <motion.div
+          initial={{ opacity: 0, scale: 0.96 }}
+          whileInView={{ opacity: 1, scale: 1 }}
+          viewport={{ once: true, margin: "0px 0px -10% 0px" }}
+          transition={{ duration: 0.7, ease: [0.23, 1, 0.32, 1] }}
+          className="relative w-full max-w-[800px] overflow-hidden block-radius aspect-[4/5]"
+        >
           <Image
             src="/images/profile/profile-image.jpg"
             alt="Nisha Rastogi"
@@ -16,9 +25,11 @@ export function Bio() {
             className="object-cover"
             priority={false}
           />
-        </div>
+        </motion.div>
         <div className="flex flex-col gap-6">
-          <h2>I love the messy, ambiguous early stages of building</h2>
+          <h2 className="section-thesis">
+            I love the messy, ambiguous early stages of building
+          </h2>
           <p
             className="text-body-large"
             style={{ color: "var(--color-muted)" }}

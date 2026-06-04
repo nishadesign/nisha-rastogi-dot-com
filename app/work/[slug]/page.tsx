@@ -55,7 +55,7 @@ export default async function ProjectDetailPage({ params }: Props) {
   return (
     <PageWrapper>
       <article className="pb-20 max-w-[1400px] mx-auto px-5 tablet:px-10">
-        <h1 className="pt-12 tablet:pt-20 pb-20 tablet:pb-32">{project.title}</h1>
+        <h1 className="pt-12 tablet:pt-20 pb-10 tablet:pb-16">{project.title}</h1>
         <div className="grid grid-cols-1 desktop:grid-cols-2 gap-8 tablet:gap-12 desktop:gap-20 items-start pb-8 tablet:pb-12">
           <p
             className="text-body"

@@ -132,6 +132,16 @@ h2 {
   }
 }
 
+/* Section thesis — statement-tier between h1 and h2 */
+.section-thesis {
+  font-family: var(--font-heading);
+  font-size: clamp(24px, 2.6vw, 36px);
+  font-weight: 400;
+  line-height: 1.2;
+  letter-spacing: -0.025em;
+  text-wrap: balance;
+}
+
 /* Card header */
 h3,
 h4,
@@ -222,6 +232,22 @@ h3.two-tone {
     opacity: 1;
     transform: translateY(0);
   }
+}
+
+/* Status dot ping */
+@keyframes status-ping {
+  0% {
+    transform: scale(1);
+    opacity: 0.6;
+  }
+  75%, 100% {
+    transform: scale(2.5);
+    opacity: 0;
+  }
+}
+
+.status-ping {
+  animation: status-ping 1.6s var(--ease-out) infinite;
 }
 
 .page-transition {

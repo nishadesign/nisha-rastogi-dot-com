@@ -15,38 +15,29 @@ export default function ThoughtsIndexPage() {
     <PageWrapper>
       <article className="pb-20 max-w-[1400px] mx-auto px-5 tablet:px-10">
         <h1 className="pt-12 tablet:pt-20 pb-20 tablet:pb-32">Thoughts</h1>
-        <ul className="grid grid-cols-1 tablet:grid-cols-2 gap-5 tablet:gap-10 auto-rows-fr">
+        <ul className="flex flex-col gap-5 tablet:gap-6 max-w-[720px]">
           {thoughts.map((t) => (
-            <li key={t.slug} className="h-full">
-              <FadeIn className="h-full">
+            <li key={t.slug}>
+              <FadeIn>
                 <Link
                   href={`/thoughts/${t.slug}`}
-                  className="block group h-full"
+                  className="group flex flex-col gap-2 -mx-4 px-4 py-4 tablet:-mx-6 tablet:px-6 tablet:py-6 block-radius transition-colors duration-300 ease-[cubic-bezier(0.23,1,0.32,1)] hover:bg-[var(--color-background-alt)]"
                 >
-                  <div
-                    className="block-radius p-8 tablet:p-10 desktop:p-12 transition-transform duration-150 ease-out group-hover:scale-[1.01] group-active:scale-[0.97] flex flex-col gap-2 h-full"
-                    style={{
-                      backgroundColor: "var(--color-background-alt)",
-                    }}
-                  >
-                    <span
-                      className="font-mono text-caption uppercase tracking-[-0.03em]"
+                  <h3>{t.title}</h3>
+                  {t.description && (
+                    <p
+                      className="text-body"
                       style={{ color: "var(--color-muted)" }}
                     >
-                      {t.date}
-                    </span>
-                    <h3 className="transition-opacity group-hover:opacity-60">
-                      {t.title}
-                    </h3>
-                    {t.description && (
-                      <p
-                        className="text-body line-clamp-2"
-                        style={{ color: "var(--color-muted)" }}
-                      >
-                        {t.description}
-                      </p>
-                    )}
-                  </div>
+                      {t.description}
+                    </p>
+                  )}
+                  <span
+                    className="font-mono text-caption uppercase tracking-[-0.03em]"
+                    style={{ color: "var(--color-muted)" }}
+                  >
+                    {t.date}
+                  </span>
                 </Link>
               </FadeIn>
             </li>

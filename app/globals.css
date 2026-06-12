@@ -4,7 +4,7 @@
 @import "../styles/tokens/components.css";
 
 @theme {
-  --font-body: -apple-system, BlinkMacSystemFont, "SF Pro Text", "SF Pro", system-ui, sans-serif;
+  --font-body: "Al Bayan", -apple-system, BlinkMacSystemFont, "SF Pro Text", "SF Pro", system-ui, sans-serif;
   --font-heading: "Inter Display", "Inter", system-ui, sans-serif;
   --font-mono: "SF Mono", "Fira Code", ui-monospace, monospace;
 
@@ -95,7 +95,7 @@ p,
 h1,
 .impact-stat {
   font-size: clamp(28px, 3.5vw, 48px);
-  font-weight: 400;
+  font-weight: 600;
   line-height: 1.15;
   letter-spacing: -0.025em;
 }
@@ -103,9 +103,11 @@ h1,
 /* Hero — larger than h1, used for the home/bento landing headline */
 .hero-h1 {
   font-size: clamp(40px, 6vw, 80px);
-  font-weight: 400;
+  font-weight: 500;
   line-height: 1.1;
   letter-spacing: -0.03em;
+  /* Greedy wrap: drop one word at a time, no line balancing */
+  text-wrap: wrap;
 }
 
 .impact-stat {

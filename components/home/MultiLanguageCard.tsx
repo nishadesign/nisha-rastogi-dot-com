@@ -127,6 +127,11 @@ export function MultiLanguageCard({
     Math.min(size.w, size.h) * config.radiusMultiplier
   );
 
+  // Shrink the pills along with the arc so the gap between them stays
+  // proportional. Without this, the pills keep their full size while the
+  // radius collapses on small cards, so they overlap and look squished.
+  const pillScale = Math.max(0.5, Math.min(1, radius / 240));
+
   return (
     <div
       ref={containerRef}
@@ -149,6 +154,7 @@ export function MultiLanguageCard({
           cx={cx}
           cy={cy}
           radius={radius}
+          pillScale={pillScale}
           config={config}
         />
       ))}
@@ -164,6 +170,7 @@ function ArcPill({
   cx,
   cy,
   radius,
+  pillScale,
   config,
 }: {
   lang: Lang;
@@ -173,6 +180,7 @@ function ArcPill({
   cx: number;
   cy: number;
   radius: number;
+  pillScale: number;
   config: MultiLanguageCardConfig;
 }) {
   const wrapperRef = useRef<HTMLDivElement>(null);
@@ -200,7 +208,7 @@ function ArcPill({
         ? 1
         : Math.pow(1 - (t - config.fadeHold) / (1 - config.fadeHold), 1.8);
 
-    wrapperRef.current.style.transform = `translate3d(${x}px, ${y}px, 0) translate(-50%, -50%) rotate(${radialDeg}deg)`;
+    wrapperRef.current.style.transform = `translate3d(${x}px, ${y}px, 0) translate(-50%, -50%) rotate(${radialDeg}deg) scale(${pillScale})`;
     wrapperRef.current.style.opacity = String(visibility);
   });
 

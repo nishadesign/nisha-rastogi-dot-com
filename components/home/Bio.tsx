@@ -9,7 +9,7 @@ import { profile } from "@/data/profile";
 export function Bio() {
   return (
     <section className="px-5 tablet:px-10 py-16 tablet:py-20 desktop:py-32">
-      <FadeIn className="grid grid-cols-1 desktop:grid-cols-[800px_1fr] gap-8 tablet:gap-12 desktop:gap-20 items-start">
+      <FadeIn className="grid grid-cols-1 tablet:grid-cols-2 desktop:grid-cols-[800px_1fr] gap-8 tablet:gap-12 desktop:gap-20 items-start">
         <motion.div
           initial={{ opacity: 0, scale: 0.96 }}
           whileInView={{ opacity: 1, scale: 1 }}

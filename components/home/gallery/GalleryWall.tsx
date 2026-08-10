@@ -1,22 +1,51 @@
 "use client";
 
-import { useState } from "react";
-import type { ReactNode } from "react";
+import { useEffect, useState } from "react";
 import { motion } from "motion/react";
 import { fadeInUp } from "@/lib/motion";
 import { galleryTiles } from "@/data/gallery";
 import type { ProjectFrontmatter } from "@/types/project";
+import { getGalleryProjectDetail } from "./actions";
 import { ProjectOverlay } from "./ProjectOverlay";
 import { GalleryCard } from "./GalleryCard";
 
 export function GalleryWall({
-  details,
   bioProject,
 }: {
-  details: Record<string, ReactNode>;
   bioProject: ProjectFrontmatter | null;
 }) {
   const [selected, setSelected] = useState<string | null>(null);
+  const [details, setDetails] = useState<Record<string, ProjectFrontmatter | null>>({});
+  const [loadingSlug, setLoadingSlug] = useState<string | null>(null);
+  const [errorSlug, setErrorSlug] = useState<string | null>(null);
+
+  useEffect(() => {
+    if (!selected || Object.prototype.hasOwnProperty.call(details, selected)) {
+      return;
+    }
+
+    let cancelled = false;
+    setLoadingSlug(selected);
+    setErrorSlug(null);
+
+    getGalleryProjectDetail(selected)
+      .then((project) => {
+        if (cancelled) return;
+        setDetails((current) => ({ ...current, [selected]: project }));
+      })
+      .catch(() => {
+        if (cancelled) return;
+        setErrorSlug(selected);
+      })
+      .finally(() => {
+        if (cancelled) return;
+        setLoadingSlug(null);
+      });
+
+    return () => {
+      cancelled = true;
+    };
+  }, [details, selected]);
 
   return (
     <section className="px-5 tablet:px-10 pt-[160px] pb-32 tablet:pb-40">
@@ -62,7 +91,9 @@ export function GalleryWall({
 
       <ProjectOverlay
         projectSlug={selected}
-        detail={selected ? details[selected] : null}
+        project={selected ? details[selected] : null}
+        isLoading={!!selected && loadingSlug === selected}
+        hasError={!!selected && errorSlug === selected}
         onClose={() => setSelected(null)}
       />
     </section>

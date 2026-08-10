@@ -29,6 +29,7 @@ export const galleryTiles: GalleryTile[] = [
     project: "data-library",
     src: "/images/projects/data-library/status card.mp4",
     alt: "Data Library file tree",
+    poster: "/images/projects/data-library/lib-home.png",
     aspect: "4/3",
   },
   {
@@ -44,6 +45,7 @@ export const galleryTiles: GalleryTile[] = [
     project: "shoe",
     src: "/images/projects/shoe/shoe.mp4",
     alt: "Shoe",
+    poster: "/images/projects/shoe/shoe.png",
     aspect: "9/16",
   },
   {
@@ -75,12 +77,14 @@ export const galleryTiles: GalleryTile[] = [
     project: "wish-fashion",
     src: "/images/projects/wish-fashion/video-based.mp4",
     alt: "Wish video-based discovery",
+    poster: "/images/projects/wish-fashion/product-description.png",
     aspect: "9/16",
   },
   {
     id: "homing-hero",
     project: "homing",
     src: "/images/projects/homing/sender.mp4",
+    poster: "/images/projects/homing/homing.png",
     alt: "Homing",
     aspect: "4/3",
   },

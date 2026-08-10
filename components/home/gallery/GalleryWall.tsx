@@ -11,6 +11,7 @@ import { GalleryCard } from "./GalleryCard";
 const HERO_HEADLINE = "Making complex workflows feel simple";
 const WALL_EASE = [0.16, 1, 0.3, 1] as const;
 const HERO_INTRO_DURATION_MS = 1080;
+const MOBILE_MEDIA_QUERY = "(max-width: 809px)";
 const HERO_LINES = [
   [
     { text: "Making", index: 0 },
@@ -68,10 +69,12 @@ export function GalleryWall({
 }) {
   const shouldReduceMotion = useReducedMotion();
   const [isHeroIntroComplete, setIsHeroIntroComplete] = useState(false);
+  const [isMobileViewport, setIsMobileViewport] = useState(false);
   const [selected, setSelected] = useState<string | null>(null);
   const [details, setDetails] = useState<Record<string, ProjectFrontmatter | null>>({});
   const [loadingSlug, setLoadingSlug] = useState<string | null>(null);
   const [errorSlug, setErrorSlug] = useState<string | null>(null);
+  const canOpenProjectOverlay = !isMobileViewport;
 
   useEffect(() => {
     if (shouldReduceMotion) {
@@ -85,6 +88,22 @@ export function GalleryWall({
 
     return () => window.clearTimeout(timeoutId);
   }, [shouldReduceMotion]);
+
+  useEffect(() => {
+    const query = window.matchMedia(MOBILE_MEDIA_QUERY);
+    const updateViewport = () => setIsMobileViewport(query.matches);
+
+    updateViewport();
+    query.addEventListener("change", updateViewport);
+
+    return () => query.removeEventListener("change", updateViewport);
+  }, []);
+
+  useEffect(() => {
+    if (isMobileViewport) {
+      setSelected(null);
+    }
+  }, [isMobileViewport]);
 
   useEffect(() => {
     if (!selected || Object.prototype.hasOwnProperty.call(details, selected)) {
@@ -173,7 +192,7 @@ export function GalleryWall({
                 transformStyle: "preserve-3d",
               }}
             >
-              {tile.component === "bio" ? (
+              {tile.component === "bio" || !canOpenProjectOverlay ? (
                 card
               ) : (
                 <button
@@ -190,13 +209,15 @@ export function GalleryWall({
         })}
       </div>
 
-      <ProjectOverlay
-        projectSlug={selected}
-        project={selected ? details[selected] : null}
-        isLoading={!!selected && loadingSlug === selected}
-        hasError={!!selected && errorSlug === selected}
-        onClose={() => setSelected(null)}
-      />
+      {canOpenProjectOverlay && (
+        <ProjectOverlay
+          projectSlug={selected}
+          project={selected ? details[selected] : null}
+          isLoading={!!selected && loadingSlug === selected}
+          hasError={!!selected && errorSlug === selected}
+          onClose={() => setSelected(null)}
+        />
+      )}
     </section>
   );
 }

@@ -2,6 +2,7 @@
 
 import { useEffect, useState } from "react";
 import Image from "next/image";
+import { Pin } from "lucide-react";
 import { profile } from "@/data/profile";
 import type { ProjectFrontmatter } from "@/types/project";
 
@@ -52,6 +53,16 @@ export function BioGalleryCard({
       style={{ backgroundColor: "#fff" }}
     >
       <div className="relative w-full overflow-hidden block-radius aspect-[4/5]">
+        <div
+          className="absolute right-3 top-3 z-10 flex h-9 w-9 items-center justify-center rounded-full shadow-sm backdrop-blur"
+          style={{
+            backgroundColor: "rgba(255, 255, 255, 0.88)",
+            color: "var(--color-content)",
+          }}
+          aria-hidden="true"
+        >
+          <Pin className="h-4 w-4 -rotate-12" strokeWidth={2} />
+        </div>
         {slides.map((slide, i) => (
           <Image
             key={`${slide.src}-${i}`}

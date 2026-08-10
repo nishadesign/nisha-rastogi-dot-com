@@ -5,16 +5,22 @@ import type { ReactNode } from "react";
 import { createPortal } from "react-dom";
 import { AnimatePresence, motion } from "motion/react";
 import { X } from "lucide-react";
+import type { ProjectFrontmatter } from "@/types/project";
+import { ProjectDetailContent } from "./ProjectDetailContent";
 
 const ease = [0.23, 1, 0.32, 1] as const;
 
 export function ProjectOverlay({
   projectSlug,
-  detail,
+  project,
+  isLoading,
+  hasError,
   onClose,
 }: {
   projectSlug: string | null;
-  detail: ReactNode;
+  project: ProjectFrontmatter | null;
+  isLoading: boolean;
+  hasError: boolean;
   onClose: () => void;
 }) {
   const panelRef = useRef<HTMLDivElement>(null);
@@ -84,11 +90,31 @@ export function ProjectOverlay({
               <X size={18} />
             </button>
 
-            {detail}
+            {isLoading ? (
+              <ProjectOverlayMessage>Loading project...</ProjectOverlayMessage>
+            ) : hasError ? (
+              <ProjectOverlayMessage>
+                Could not load this project. Please try again.
+              </ProjectOverlayMessage>
+            ) : project ? (
+              <ProjectDetailContent project={project} />
+            ) : (
+              <ProjectOverlayMessage>Project unavailable.</ProjectOverlayMessage>
+            )}
           </motion.div>
         </motion.div>
       )}
     </AnimatePresence>,
     document.body
+  );
+}
+
+function ProjectOverlayMessage({ children }: { children: ReactNode }) {
+  return (
+    <div className="project-detail min-h-[260px] flex items-center justify-center">
+      <p className="text-caption" style={{ color: "var(--color-muted)" }}>
+        {children}
+      </p>
+    </div>
   );
 }

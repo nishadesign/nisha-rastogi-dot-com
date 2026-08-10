@@ -7,15 +7,5 @@
   --block-bg: var(--color-background-alt);
   --block-radius-mobile: 14px;
   --block-radius-tablet: 20px;
-  --block-radius-desktop: 30px;
-  --block-padding-mobile: 20px;
-  --block-padding-tablet: 32px;
-  --block-padding-desktop: 40px;
-
-  /* Nav */
-  --nav-bg: var(--color-floating);
-  --nav-blur: 40px;
-
-  /* Card hover */
-  --card-hover-scale: 1.03;
+  --block-radius-desktop: 12px;
 }

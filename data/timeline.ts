@@ -11,27 +11,46 @@ export type TimelineEntry = {
     src: string;
     alt: string;
   };
+  // One or more photos rendered under the header. Drop image files in
+  // public/images/about/ and reference them here, e.g.
+  // photos: [{ src: "/images/about/oaxaca.jpg", alt: "Oaxaca courtyard" }]
+  photos?: {
+    src: string;
+    alt: string;
+  }[];
 };
 
 export const timeline: TimelineEntry[] = [
   
   {
     category: "life",
-    date: "Unknown",
-    title: "Build Coffee, CrossFit & Cocktail",
-    description: "Everything that I love in one place — I will build this for myself and Vibhor.",
+    date: "TBD",
+    title: "Coffee, CrossFit & Cocktail",
+    description: "I think about where I would want to be in the next phase of my life and I picture myself in a smaller town enjoying my coffee before the WOD and later shaking cocktails behind the bar. ",
   },
   {
-    category: "life",
+    category: "work",
     date: "2026",
     title: "Sam Stephenson, Ryo, and Soleio",
     description: "I saw Sam for the first time on the Dive Club podcast — I remember the next 48 hrs obsessing over everything he said about being a designer and design. Someday I hope to meet him in person. I saw Soleio baba at South Park Commons (hoping someday he will read 'baba' on my portfolio and get a good laugh). Knowing Sam, Ryo, and Soleio has been enlightening for my design journey.",
   },
   {
     category: "life",
-    date: "2024",
+    date: "2026",
     title: "Chalk up",
     description: "Joined CrossFit and am very much a part of this cult now.",
+  },
+  {
+    category: "travel",
+    date: "2025",
+    title: "solo trip to Portugal",
+    description: "Once in a while, I like spending time by myself, read a book, learn a new skill - I learnt surfing in Portugal.",
+    photos: [
+      {
+        src: "/images/about/portugal.JPG",
+        alt: "solo trip to Portugal",
+      },
+    ],
   },
   {
     category: "travel",
@@ -55,7 +74,7 @@ export const timeline: TimelineEntry[] = [
     category: "travel",
     date: "2019",
     title: "Mountains of India",
-    description: "Took a solo trip to do parasailing in Bir, Himachal Pradesh.",
+    description: "Experienced early life crisis so took a trip to do parasailing in Bir (from 8400ft elevation), Himachal Pradesh.",
   },
   {
     category: "work",

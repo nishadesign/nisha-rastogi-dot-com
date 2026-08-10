@@ -26,14 +26,10 @@ export function getAllProjects(): ProjectFrontmatter[] {
     .map(getProjectFrontmatter)
     .filter((p): p is ProjectFrontmatter => p !== null)
     .sort((a, b) => {
-      // Featured/order first, then date desc
+      // Order first, then date desc
       const ao = a.order ?? 999;
       const bo = b.order ?? 999;
       if (ao !== bo) return ao - bo;
       return String(b.date).localeCompare(String(a.date));
     });
-}
-
-export function getFeaturedProjects(): ProjectFrontmatter[] {
-  return getAllProjects().filter((p) => p.featured);
 }

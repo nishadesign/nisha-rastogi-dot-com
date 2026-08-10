@@ -154,6 +154,33 @@ export function Timeline({ entries }: { entries: TimelineEntry[] }) {
                     />
                   </div>
                 )}
+                {entry.photos && entry.photos.length > 0 && (
+                  <div
+                    className={[
+                      "grid grid-cols-1 gap-3 mt-2",
+                      entry.photos.length > 1
+                        ? "max-w-[560px] tablet:grid-cols-2"
+                        : "max-w-[320px]",
+                    ].join(" ")}
+                  >
+                    {entry.photos.map((photo, pi) => (
+                      <figure
+                        key={`${photo.src}-${pi}`}
+                        className="overflow-hidden block-radius"
+                      >
+                        {/* Use a native image so timeline photos keep their natural aspect ratio. */}
+                        {/* eslint-disable-next-line @next/next/no-img-element */}
+                        <img
+                          src={photo.src}
+                          alt={photo.alt}
+                          loading="lazy"
+                          decoding="async"
+                          className="block w-full h-auto"
+                        />
+                      </figure>
+                    ))}
+                  </div>
+                )}
               </div>
             </motion.div>
           );

@@ -11,27 +11,18 @@ export type ProjectFrontmatter = {
     alt: string;
     type?: "image" | "video";
   };
-  cardHero?: {
+  /** Optional media list for the detail-page carousel. Falls back to `hero`. */
+  gallery?: {
     src: string;
     alt: string;
-    type?: "image" | "video";
-    fit?: "cover" | "contain";
     poster?: string;
-    eager?: boolean;
-  };
+    fit?: "cover" | "contain";
+    /** CSS object-position for cropped media, e.g. "top" or "50% 20%". */
+    position?: string;
+  }[];
   order?: number;
-  featured?: boolean;
-  homeBlock?: {
-    colSpan: 1 | 2 | 3 | 4 | 5 | 6;
-    rowSpan: 1 | 2 | 3 | 4;
-  };
-  externalUrl?: string;
   releaseNotes?: {
     label?: string;
     href: string;
   };
-};
-
-export type Project = ProjectFrontmatter & {
-  // Computed at load time
 };

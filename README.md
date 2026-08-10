@@ -33,13 +33,13 @@ nisha-rastogi-dotcom/
 ├── app/                          # Next.js App Router pages
 │   ├── page.tsx                  # Home
 │   ├── about/                    # About + timeline
-│   ├── work/                     # Projects index + detail
+│   ├── work/                     # Project detail pages
 │   └── thoughts/                 # Writing index + detail
 │
 ├── components/
-│   ├── layout/                   # Nav, Footer, PageWrapper
-│   ├── home/                     # Hero, FeaturedWork, Bio, ProjectCard
-│   ├── project/                  # Block, Media, MetaStrip, ContentGrid
+│   ├── layout/                   # TopBrand, BottomNav, Footer, PageWrapper
+│   ├── home/                     # Gallery wall and custom gallery cards
+│   ├── project/                  # Carousel, Media, MetaStrip, ContentGrid
 │   ├── about/                    # Timeline
 │   ├── thoughts/                 # TableOfContents
 │   └── ui/                       # FadeIn (shared scroll animation)
@@ -79,21 +79,14 @@ nisha-rastogi-dotcom/
 title: Project name
 slug: your-slug
 description: Two-sentence summary that opens the case study.
-tagline: Short tagline shown on the home card.
+tagline: Optional short project line.
 team:
   - Person 1, Person 2
 date: "Aug 2024 – Dec 2024"
 hero:
   src: /images/projects/your-slug/hero.mp4    # detail page top
   alt: Hero alt text
-cardHero:
-  src: /images/projects/your-slug/card.png    # home + work cards (optional, falls back to hero)
-  alt: Card alt text
 order: 1            # display order; lower = earlier
-featured: true      # show on home page
-homeBlock:
-  colSpan: 2
-  rowSpan: 3
 releaseNotes:        # optional
   href: https://...
   label: View release notes →
@@ -155,16 +148,6 @@ Three layers in `styles/tokens/`:
 - `components.css` — component-specific tokens.
 
 Light mode: page is light grey (`#F5F5F5`); cards / media frames are pure white. Dark mode flips this with appropriate elevations.
-
-## Two-tone display headings
-
-Wrap emphasized words in `<em>` inside an `h1`, `h2`, or `h3`:
-
-```mdx
-## Lifted user confidence from <em>2.9 to 6.2</em>
-```
-
-The non-emphasized text drops to muted; emphasized words stay solid.
 
 ## Deploy
 

@@ -20,7 +20,7 @@ export function TopBrand() {
 
   return (
     <header
-      className="fixed top-0 left-0 z-50 px-5 tablet:px-10 pt-6 tablet:pt-8 transition-[opacity,transform] duration-300 ease-out"
+      className="fixed top-0 left-0 right-0 z-50 px-5 tablet:px-10 pt-6 tablet:pt-8 flex items-center justify-between transition-[opacity,transform] duration-300 ease-out"
       style={{
         opacity: hidden ? 0 : 1,
         transform: hidden ? "translateY(-12px)" : "translateY(0)",
@@ -29,25 +29,27 @@ export function TopBrand() {
     >
       <Link
         href="/"
-        className="text-body inline-flex items-center gap-4 transition-opacity duration-150 ease-out hover:opacity-60"
+        className="text-body transition-opacity duration-150 ease-out hover:opacity-60"
         style={{ color: "var(--color-muted)" }}
       >
-        <span>{profile.name}</span>
-        <span aria-hidden style={{ color: "var(--color-border-strong)" }}>·</span>
-        <span className="inline-flex items-center gap-1.5">
-          <span className="relative inline-flex w-1.5 h-1.5">
-            <span
-              className="absolute inset-0 rounded-full status-ping"
-              style={{ backgroundColor: "rgb(34 197 94)" }}
-            />
-            <span
-              className="relative inline-block w-1.5 h-1.5 rounded-full"
-              style={{ backgroundColor: "rgb(34 197 94)" }}
-            />
-          </span>
-          <span>Open to work</span>
-        </span>
+        {profile.name}
       </Link>
+      <span
+        className="text-body inline-flex items-center gap-1.5"
+        style={{ color: "var(--color-muted)" }}
+      >
+        <span className="relative inline-flex w-1.5 h-1.5">
+          <span
+            className="absolute inset-0 rounded-full status-ping"
+            style={{ backgroundColor: "rgb(34 197 94)" }}
+          />
+          <span
+            className="relative inline-block w-1.5 h-1.5 rounded-full"
+            style={{ backgroundColor: "rgb(34 197 94)" }}
+          />
+        </span>
+        <span>Looking for next role</span>
+      </span>
     </header>
   );
 }

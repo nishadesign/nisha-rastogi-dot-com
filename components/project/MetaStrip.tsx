@@ -15,21 +15,16 @@ function MetaItem({
   children: React.ReactNode;
 }) {
   return (
-    <div className="flex gap-10 items-center">
-      <h6
-        className="w-[50px] tablet:w-[100px] shrink-0"
-        style={{ color: "var(--color-muted)" }}
-      >
-        {label}
-      </h6>
-      <div className="flex-1 text-body">{children}</div>
+    <div className="flex flex-col gap-2">
+      <h6 style={{ color: "var(--color-muted)" }}>{label}</h6>
+      <div className="text-body">{children}</div>
     </div>
   );
 }
 
 export function MetaStrip({ team, date, releaseNotes }: MetaStripProps) {
   return (
-    <div className="flex flex-col gap-5">
+    <div className="grid grid-cols-1 tablet:grid-cols-3 gap-6 tablet:gap-10">
       {team && team.length > 0 && (
         <MetaItem label="Team">
           <span>{team.join(", ")}</span>

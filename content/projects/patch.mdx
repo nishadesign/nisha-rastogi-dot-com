@@ -1,95 +1,29 @@
 ---
 title: Patch — service finder agent
 slug: patch
-description: Patch is a mobile-first marketplace that helps homeowners quickly find and book trusted home service providers. Instead of searching across Thumbtack, Google, and Yelp, users describe what they need and get matched with a vetted provider. A built-in AI agent turns the messy, time-consuming search process into a fast, guided booking flow.
+description: Patch is a mobile-first marketplace that can allow AI agents to find trusted service providers. Instead of searching across Thumbtack, Google, and Yelp, users describe what they need, a fan of AI agents reach out to vetted providers. This project is a take home assignment to interview for a seed-stage startup. I built the mobile app, marketing landing page in code and deployed in Vercel. Although I did not make it after the final round, this was an excellent learning experience.
 tagline: An AI agent that books trusted home services in two days of building
 team:
-  - Take home design challenge to interview for a seed-stage startup
+  - Solo
 date: 44 hrs 
 releaseNotes:
   href: https://patch-agent-marketplace.vercel.app/
   label: Try Patch ↗
-hero:
-  src: /images/projects/patch/landing-page.mp4
-  alt: Patch service finder agent
-cardHero:
-  src: /images/projects/patch/landing-page.mp4
-  alt: Patch service finder agent
-  poster: /images/projects/patch/landing-page-poster.jpg
-order: 3
-featured: true
-homeBlock:
-  colSpan: 3
-  rowSpan: 3
-externalUrl: ""
+gallery:
+  - src: /images/projects/patch/landing-page.mp4
+    alt: Patch marketing landing page
+    poster: /images/projects/patch/landing-page-poster.jpg
+    fit: contain
+  - src: /images/projects/patch/hero.mp4
+    alt: Patch home page
+    fit: cover
+  - src: /images/projects/patch/booking.mp4
+    alt: Book services through chat
+    fit: cover
+  - src: /images/projects/patch/provider-detail.mp4
+    alt: Booking detail page
+    fit: cover
+  - src: /images/projects/patch/structured request.png
+    alt: Booking detail page
+    fit: cover
 ---
-
-<SectionBreak />
-
-<Block colSpan={6} rowSpan={1} variant="text">
-  <h2 className="desktop:col-span-1">User Opportunity</h2>
-  <p>Home services are a high-friction category. Users often need help urgently, but the current process is fragmented and stressful. Core pain points include fragmented searchs, user reaching out to every service provider and repeating themselves, comparing the price, timing, expertise themselves.</p>
-</Block>
-
-<Block colSpan={6} rowSpan={1} variant="text">
-  <h2 className="desktop:col-span-1">Key Features</h2>
-  <ul>
-    <li><strong>Conversational search:</strong> Users describe their problem through text or through voice in seconds.</li>
-  </ul>
-</Block>
-
-<Block colSpan={6} rowSpan={4} variant="media" aspectRatio={16/9}>
-  <Media src="/images/projects/patch/hero.mp4" alt="Patch home page" fit="contain" />
-</Block>
-
-<SectionBreak />
-
-<Block colSpan={6} rowSpan={1} variant="text">
-  <ul>
-    <li><strong>Agent-guided matching:</strong> The agent interprets intent and surfaces a ranked shortlist of vetted providers.</li>
-  </ul>
-</Block>
-
-<Block colSpan={6} rowSpan={4} variant="media" aspectRatio={16/9}>
-  <Media src="/images/projects/patch/booking.mp4" alt="Book services through chat" fit="contain" />
-</Block>
-
-<SectionBreak />
-
-<Block colSpan={6} rowSpan={1} variant="text">
-  <ul>
-    <li><strong>Structured Request Passthrough:</strong> Agent creates a structured request to share with service provdier, so users' don't have to repeat themselves</li>
-  </ul>
-</Block>
-
-<Block colSpan={6} rowSpan={4} variant="media" aspectRatio={16/9}>
-  <Media src="/images/projects/patch/structured request.png" alt="Booking detail page" fit="cover" />
-</Block>
-
-<SectionBreak />
-
-<Block colSpan={6} rowSpan={1} variant="text">
-  <ul>
-    <li><strong>Trust-forward profiles:</strong> Each provider card surfaces clear signals — rating, earliest slot, pricing, distance, trust badges</li>
-  </ul>
-</Block>
-
-<Block colSpan={6} rowSpan={4} variant="media" aspectRatio={16/9}>
-  <Media src="/images/projects/patch/provider-detail.mp4" alt="Booking detail page" fit="contain" />
-</Block>
-
-<SectionBreak />
-
-<Block colSpan={6} rowSpan={1} variant="text">
-  <h2 className="desktop:col-span-1">Marketing Landing Page</h2>
-  <p>Alongside the consumer app, I designed a marketing landing page targeted at two distinct audiences. The page positions Patch not just as a consumer marketplace, but as a foundation other teams can extend.</p>
-  <ul>
-    <li><strong>Service providers</strong> — to register themselves and start receiving structured, intent-rich booking requests.</li>
-    <li><strong>Developers</strong> — to build agents on top of the Patch platform, plugging into the same matching and routing infrastructure.</li>
-  </ul>
-</Block>
-
-<Block colSpan={6} rowSpan={4} variant="media" aspectRatio={1.6}>
-  <Media src="/images/projects/patch/landing-page.mp4" alt="Patch marketing landing page" fit="contain" />
-</Block>
-

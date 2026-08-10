@@ -14,17 +14,15 @@ function parseDate(value: unknown): Date {
 }
 
 export default function sitemap(): MetadataRoute.Sitemap {
-  const staticRoutes = ["", "/work", "/thoughts", "/about"].map((path) => ({
+  const staticRoutes = ["", "/thoughts", "/about"].map((path) => ({
     url: `${SITE_URL}${path}`,
     lastModified: new Date(),
   }));
 
-  const projectRoutes = getAllProjects()
-    .filter((p) => !p.externalUrl)
-    .map((p) => ({
-      url: `${SITE_URL}/work/${p.slug}`,
-      lastModified: parseDate(p.date),
-    }));
+  const projectRoutes = getAllProjects().map((p) => ({
+    url: `${SITE_URL}/work/${p.slug}`,
+    lastModified: parseDate(p.date),
+  }));
 
   const thoughtRoutes = getAllThoughts().map((t) => ({
     url: `${SITE_URL}/thoughts/${t.slug}`,

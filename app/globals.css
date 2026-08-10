@@ -4,8 +4,8 @@
 @import "../styles/tokens/components.css";
 
 @theme {
-  --font-body: "Al Bayan", -apple-system, BlinkMacSystemFont, "SF Pro Text", "SF Pro", system-ui, sans-serif;
-  --font-heading: "Inter Display", "Inter", system-ui, sans-serif;
+  --font-body: "Helvetica Neue", "Helvetica", Arial, sans-serif;
+  --font-heading: "SF Pro Display", -apple-system, BlinkMacSystemFont, "SF Pro", system-ui, sans-serif;
   --font-mono: "SF Mono", "Fira Code", ui-monospace, monospace;
 
   --ease-out: cubic-bezier(0.23, 1, 0.32, 1);
@@ -92,26 +92,32 @@ p,
 }
 
 /* Page header */
-h1,
-.impact-stat {
+h1 {
   font-size: clamp(28px, 3.5vw, 48px);
   font-weight: 600;
   line-height: 1.15;
   letter-spacing: -0.025em;
 }
 
+/* Project detail / overlay header */
+.project-detail-h1 {
+  font-size: 20px;
+}
+
+/* Project detail / overlay padding */
+.project-detail {
+  padding: 12px;
+}
+
 /* Hero — larger than h1, used for the home/bento landing headline */
 .hero-h1 {
-  font-size: clamp(40px, 6vw, 80px);
-  font-weight: 500;
+  font-family: var(--font-heading);
+  font-size: clamp(40px, 6vw, 120px);
+  font-weight: 400;
   line-height: 1.1;
   letter-spacing: -0.03em;
   /* Greedy wrap: drop one word at a time, no line balancing */
   text-wrap: wrap;
-}
-
-.impact-stat {
-  font-family: var(--font-heading);
 }
 
 /* Section header */
@@ -132,16 +138,6 @@ h2 {
   h2 {
     font-size: 22px;
   }
-}
-
-/* Section thesis — statement-tier between h1 and h2 */
-.section-thesis {
-  font-family: var(--font-heading);
-  font-size: clamp(24px, 2.6vw, 36px);
-  font-weight: 400;
-  line-height: 1.2;
-  letter-spacing: -0.025em;
-  text-wrap: balance;
 }
 
 /* Card header */
@@ -180,18 +176,12 @@ h6 {
   }
 }
 
-/* Two-tone display — Nisha's signature differentiator */
+/* Heading emphasis */
 h1 em,
 h2 em,
 h3 em {
   font-style: normal;
   color: var(--color-content);
-}
-
-h1.two-tone,
-h2.two-tone,
-h3.two-tone {
-  color: var(--color-muted);
 }
 
 /* Body */
@@ -341,6 +331,15 @@ h3.two-tone {
   font-style: italic;
 }
 
+/* Footer social icons: muted → primary on hover */
+.footer-social {
+  color: var(--color-muted);
+  transition: color 0.2s var(--ease-out);
+}
+.footer-social:hover {
+  color: var(--color-content);
+}
+
 /* Hide scrollbar but keep scrolling */
 .hide-scrollbar {
   scrollbar-width: none;
@@ -348,19 +347,6 @@ h3.two-tone {
 }
 .hide-scrollbar::-webkit-scrollbar {
   display: none;
-}
-
-/* Featured Work horizontal scroll — left edge aligns with H1, bleeds right */
-.featured-scroll {
-  padding-left: var(--container-px);
-  scroll-padding-left: var(--container-px);
-}
-
-@media (min-width: 810px) {
-  .featured-scroll {
-    padding-left: var(--container-px-tablet);
-    scroll-padding-left: var(--container-px-tablet);
-  }
 }
 
 /* Mute prose inside text Blocks; headings, links, and explicitly-styled
@@ -396,22 +382,5 @@ h3.two-tone {
   }
   .group:hover .group-hover\:opacity-60 {
     opacity: 1;
-  }
-}
-
-/* Bento block padding (responsive) */
-.block-padding {
-  padding: var(--block-padding-mobile);
-}
-
-@media (min-width: 810px) {
-  .block-padding {
-    padding: var(--block-padding-tablet);
-  }
-}
-
-@media (min-width: 1280px) {
-  .block-padding {
-    padding: var(--block-padding-desktop);
   }
 }

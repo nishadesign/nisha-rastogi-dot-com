@@ -1,7 +1,7 @@
 ---
-title: Data Library for Agentforce
+title: "Data Library: from enterprise knowledge bases to agent context"
 slug: data-library
-description: "Data Library lets Agentforce admins turn enterprise documents into searchable knowledge bases that ground AI agent responses. We built it to solve a trust problem: without visibility into how data becomes agent knowledge, admins couldn't diagnose bad answers or improve accuracy."
+description: "Data Library is a harness that lets admins turn enterprise documents into searchable knowledge bases that ground AI agent responses. The harness is an automated loop that simplifies the data processing pipelines for RAG for non-technical users. I have been working on this product for more than a year and shipped 3 different versions across several releases. With API-first approach, improved latency and accuracy, the product is now trusted by more than 8000 businesses using Agentforce to ground their agent responses."
 tagline: Searchable knowledge base for AI agents for RAG
 team:
   - Sameer, Sybil, Chang, Monil
@@ -12,76 +12,18 @@ date: Sep 2024 - Present
 releaseNotes:
   href: https://help.salesforce.com/s/articleView?id=ai.data_library_parent.htm&type=5
   label: Release Notes ↗
-hero:
-  src: /images/projects/data-library/status card.mp4
-  alt: Data Library for Agentforce hero
-cardHero:
-  src: /images/projects/data-library/lib-home.png
-  alt: Data Library for Agentforce hero
-  eager: true
-order: 1
-featured: true
-homeBlock:
-  colSpan: 2
-  rowSpan: 3
-externalUrl: ""
+gallery:
+  - src: /images/projects/data-library/lib-home.png
+    alt: Connect your data — Data Library home page
+  - src: /images/projects/data-library/status-framework.png
+    alt: Status framework for the Data Library
+    fit: contain
+  - src: /images/projects/data-library/lifecycle.mp4
+    alt: Data Library for Agentforce hero
+  - src: /images/projects/data-library/dot-matrix-2.mp4
+    alt: Context block in Agent Builder — left video
+    fit: contain
+  - src: /images/projects/data-library/file-tree.mp4
+    alt: Context block in Agent Builder — right video
+    fit: contain
 ---
-<SectionBreak />
- 
-<Block colSpan={6} rowSpan={1} variant="text">
-  <h2>Discover data sources</h2>
-  <p>The Data Library home page is the starting point for grounding agents in enterprise knowledge. It surfaces every supported data source — uploaded files, Salesforce Knowledge, external MCPs, Google Drive, SharePoint, Slack — so admins can see what's available, what's already connected, and what they can add. No hunting through separate tools; discovery and connection happen in one place.</p>
-</Block>
-
-<Block colSpan={6} rowSpan={4} variant="media" aspectRatio={1.6}>
-  <Media src="/images/projects/data-library/lib-home.png" alt="Connect your data — Data Library home page" />
-</Block>
-
-<SectionBreak />
-
-<Block colSpan={6} rowSpan={1} variant="text">
-  <h2>Data Processing</h2>
-  <p>Data pipelines are a black box. Users upload files, wait, and hope. The status card makes the process visible: it surfaces each step — upload, index, retriever setup — in real time, so users can track progress, spot failures early, and know the moment their knowledge base is ready for agents. The status framework allows any data source pipeline to plug into it so users gets consistent experience across all data source type.</p>
-</Block>
-
-
-<Block colSpan={6} rowSpan={4} variant="media" aspectRatio={1.6}>
-  <Media src="/images/projects/data-library/status-framework.png" alt="Status framework for the Data Library" fit="contain" />
-</Block>
-
-<SectionBreak />
-
-<Block colSpan={6} rowSpan={1} variant="text">
-  <h2>Context block in Agent Builder</h2>
-  <p>When users connect data inside the Agent Builder, they care about speed — not pipeline transparency. The context block lets them quickly attach data sources for processing without leaving the agent building flow.</p>
-</Block>
-
-<Block colSpan={3} rowSpan={4} variant="media" aspectRatio={1.6}>
-  <Media src="/images/projects/data-library/dot-matrix-2.mp4" alt="Context block in Agent Builder — left video" fit="contain" />
-</Block>
-
-<Block colSpan={3} rowSpan={4} variant="media" aspectRatio={1.6}>
-  <Media src="/images/projects/data-library/file-tree.mp4" alt="Context block in Agent Builder — right video" fit="contain" />
-</Block>
-
-<SectionBreak />
-
-<Block colSpan={6} rowSpan={1} variant="text">
-  <div className="flex flex-col gap-12 tablet:gap-16">
-    <h2>Impact</h2>
-    <div className="grid grid-cols-1 tablet:grid-cols-3 gap-10 tablet:gap-12 desktop:gap-20">
-      <div className="flex flex-col gap-3">
-        <div className="impact-stat">2.9 → 6.2</div>
-        <p className="text-body">User confidence after redesign (out of 7)</p>
-      </div>
-      <div className="flex flex-col gap-3">
-        <div className="impact-stat">40%</div>
-        <p className="text-body">Reduction in customer support cases — admins self-serve</p>
-      </div>
-      <div className="flex flex-col gap-3">
-        <div className="impact-stat">~80%</div>
-        <p className="text-body">Increase in product adoption</p>
-      </div>
-    </div>
-  </div>
-</Block>

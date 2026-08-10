@@ -48,7 +48,7 @@ export function GalleryWall({
   }, [details, selected]);
 
   return (
-    <section className="px-5 tablet:px-10 pt-[160px] pb-32 tablet:pb-40">
+    <section className="px-5 tablet:px-10 pt-24 tablet:pt-[160px] pb-24 tablet:pb-40">
       {/* hero headline */}
       <h1
         className="hero-h1 pb-6 tablet:pb-8 text-center"
@@ -56,7 +56,7 @@ export function GalleryWall({
       >
         Making complex<br />workflows feel simple
       </h1>
-      <h2 className="pb-64 tablet:pb-72 text-center font-normal" style={{ color: "var(--color-muted)" }}>
+      <h2 className="pb-36 tablet:pb-72 text-center font-normal" style={{ color: "var(--color-muted)" }}>
         Building AI products at Salesforce, used by 90% of the Fortune 500.
       </h2>
 

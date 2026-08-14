@@ -48,7 +48,7 @@ export function TopBrand() {
             style={{ backgroundColor: "rgb(34 197 94)" }}
           />
         </span>
-        <span>Looking for next role</span>
+        <span>Open to Work</span>
       </span>
     </header>
   );

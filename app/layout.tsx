@@ -3,6 +3,7 @@ import { Analytics } from "@vercel/analytics/next";
 import { BottomNav } from "@/components/layout/BottomNav";
 import { TopBrand } from "@/components/layout/TopBrand";
 import { Footer } from "@/components/layout/Footer";
+import { ImmersiveRouteGate } from "@/components/layout/ImmersiveRouteGate";
 import { profile } from "@/data/profile";
 import "./globals.css";
 
@@ -44,9 +45,13 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body>
-        <TopBrand />
+        <ImmersiveRouteGate>
+          <TopBrand />
+        </ImmersiveRouteGate>
         {children}
-        <Footer />
+        <ImmersiveRouteGate>
+          <Footer />
+        </ImmersiveRouteGate>
         <BottomNav />
         <Analytics />
       </body>

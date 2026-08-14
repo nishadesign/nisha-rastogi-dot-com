@@ -1,0 +1,215 @@
+/* Photo wall — an infinite 2D pannable surface, driven by scroll/touch.
+   Ported from the standalone gallery prototype; motion values were iterated
+   to taste (zoom open 300ms / close 220ms, cubic-bezier(0.2, 0, 0, 1)). */
+
+.photo-wall {
+  --pw-gap: 14px;
+  --pw-radius: 10px;
+  /* soft lift + ambient depth */
+  --pw-shadow:
+    0px 1px 2px -1px oklch(0 0 0 / 0.06),
+    0px 2px 4px 0px oklch(0 0 0 / 0.04);
+
+  padding: var(--pw-gap) 0;
+  height: 100dvh;
+  overflow: hidden;
+  touch-action: none; /* the wall handles touch drags itself */
+}
+
+/* the 2D surface: pans vertically while each row's track pans horizontally */
+.pw-canvas {
+  display: flex;
+  flex-direction: column;
+  gap: var(--pw-gap);
+  will-change: transform;
+}
+
+.pw-row {
+  flex: none;
+  height: calc((100dvh - 4 * var(--pw-gap)) / 3);
+  min-height: 0;
+  animation: pw-enter 400ms ease-out both;
+}
+
+.pw-row:nth-child(2) { animation-delay: 100ms; }
+.pw-row:nth-child(3) { animation-delay: 200ms; }
+
+@keyframes pw-enter {
+  from {
+    opacity: 0;
+    transform: translateY(12px);
+    filter: blur(4px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+    filter: blur(0);
+  }
+}
+
+.pw-track {
+  display: flex;
+  gap: var(--pw-gap);
+  height: 100%;
+  will-change: transform;
+}
+
+.pw-photo {
+  position: relative;
+  flex: none;
+  height: 100%;
+  margin: 0;
+  border-radius: var(--pw-radius);
+  overflow: hidden;
+  cursor: zoom-in;
+  background: #eceae6;
+  box-shadow: var(--pw-shadow);
+  transition: scale 150ms ease-out;
+}
+
+.pw-photo:active {
+  scale: 0.96;
+}
+
+.pw-photo img {
+  display: block;
+  height: 100%;
+  width: auto;
+  max-width: none;
+  transition: transform 300ms cubic-bezier(0.2, 0, 0, 1), filter 300ms cubic-bezier(0.2, 0, 0, 1);
+}
+
+.pw-photo:hover img {
+  transform: scale(1.04);
+  filter: brightness(1.08);
+}
+
+.pw-photo figcaption {
+  position: absolute;
+  inset: auto 0 0 0;
+  padding: 24px 12px 10px;
+  font-size: 0.8rem;
+  color: #fff;
+  background: linear-gradient(to top, rgba(0, 0, 0, 0.65), transparent);
+  opacity: 0;
+  transition: opacity 0.35s ease;
+}
+
+.pw-photo:hover figcaption { opacity: 1; }
+
+/* ---- Lightbox ---- */
+
+.pw-lightbox {
+  position: fixed;
+  inset: 0;
+  z-index: 60; /* above TopBrand / BottomNav (z-50) */
+}
+
+/* The frosted scrim lives on its own layer with a constant blur and only
+   its opacity animates — transitioning the blur radius itself re-rasterizes
+   the whole viewport every frame and made the zoom stutter. */
+.pw-lightbox-backdrop {
+  position: absolute;
+  inset: 0;
+  background: rgb(var(--color-background-rgb) / 0.94);
+  backdrop-filter: blur(6px);
+  -webkit-backdrop-filter: blur(6px);
+  opacity: 0;
+  transition: opacity 250ms ease-out;
+}
+
+.pw-lightbox.is-open .pw-lightbox-backdrop {
+  opacity: 1;
+}
+
+.pw-lightbox[hidden] { display: none; }
+
+.pw-lightbox img {
+  position: absolute;
+  border-radius: 16px;
+  box-shadow: 0 30px 80px rgba(30, 28, 24, 0.25);
+  will-change: transform;
+  max-width: none;
+}
+
+.pw-lightbox-caption {
+  position: absolute;
+  transform: translateX(-50%);
+  max-width: 80vw;
+  text-align: center;
+  text-wrap: pretty;
+  color: var(--color-muted);
+  font-size: 0.9rem;
+  opacity: 0;
+  transition: opacity 200ms ease-out 100ms;
+}
+
+.pw-lightbox-close {
+  position: absolute;
+  top: 12px;
+  right: 16px;
+  width: 44px;
+  height: 44px;
+  display: grid;
+  place-items: center;
+  font-size: 2rem;
+  line-height: 1;
+  color: var(--color-content);
+  background: none;
+  border: none;
+  cursor: pointer;
+  opacity: 0;
+  transition: opacity 200ms ease-out 100ms;
+}
+
+.pw-lightbox.is-open .pw-lightbox-caption,
+.pw-lightbox.is-open .pw-lightbox-close {
+  opacity: 1;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .pw-lightbox,
+  .pw-lightbox-backdrop,
+  .pw-lightbox img,
+  .pw-lightbox-caption,
+  .pw-lightbox-close {
+    transition: none !important;
+  }
+}
+
+/* ---- Responsive ---- */
+
+@media (max-width: 600px) {
+  .photo-wall .pw-row[data-src="2"] { display: none; }
+}
+
+/* ---- Reduced motion: static, manually scrollable grid ---- */
+
+@media (prefers-reduced-motion: reduce) {
+  .photo-wall {
+    height: auto;
+    overflow: visible;
+    touch-action: auto;
+    padding-top: 96px;
+    padding-bottom: 120px;
+  }
+  .pw-row {
+    flex: none;
+    height: auto;
+    animation: none;
+  }
+  .pw-track {
+    flex-wrap: wrap;
+    height: auto;
+    justify-content: center;
+  }
+  .pw-photo,
+  .pw-photo img {
+    transition: none;
+  }
+  .pw-photo { height: 220px; }
+  .pw-photo img { height: 100%; }
+  /* duplicated loop copies are hidden so photos don't repeat */
+  .pw-track .is-clone,
+  .pw-row.is-clone-row { display: none; }
+}

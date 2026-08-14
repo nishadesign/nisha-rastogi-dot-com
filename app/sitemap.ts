@@ -14,7 +14,7 @@ function parseDate(value: unknown): Date {
 }
 
 export default function sitemap(): MetadataRoute.Sitemap {
-  const staticRoutes = ["", "/thoughts", "/about"].map((path) => ({
+  const staticRoutes = ["", "/thoughts", "/photos", "/about"].map((path) => ({
     url: `${SITE_URL}${path}`,
     lastModified: new Date(),
   }));

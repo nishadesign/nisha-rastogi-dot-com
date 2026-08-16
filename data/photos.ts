@@ -1,8 +1,10 @@
-// Photos shown on the /photos wall. Web-optimized copies (max 1600px)
-// live in public/photos/web/; the wall itself renders small copies from
-// public/photos/thumb/ (max 800px) — when adding a photo, generate its
-// thumb too: sips -Z 800 -s format jpeg -s formatOptions 70 web/<f> --out thumb/<f>
-// w/h are the full image's pixel dimensions; they
+// Photos shown on the /photos wall. Web-optimized copies (max 1600px) live
+// in public/photos/web/ and are the source of truth; the wall itself renders
+// height-capped WebP copies from public/photos/thumb-480/ and thumb-900/ and
+// picks between them with srcset. After adding a photo to web/, regenerate
+// both with: node scripts/gen-photo-thumbs.mjs
+// w/h are the full image's pixel dimensions; they drive the srcset width
+// descriptors and the `sizes` hint, and they
 // let the wall lay out before images load, which keeps the infinite loop
 // stable — every entry needs them. Captions appear on hover and in the
 // lightbox; leave "" for none. Reorder entries to change the wall order.

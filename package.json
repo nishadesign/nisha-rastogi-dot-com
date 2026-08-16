@@ -6,7 +6,8 @@
     "dev": "next dev",
     "build": "next build",
     "start": "next start",
-    "lint": "next lint"
+    "lint": "next lint",
+    "photos:thumbs": "node scripts/gen-photo-thumbs.mjs"
   },
   "dependencies": {
     "@mdx-js/loader": "^3.0.1",
@@ -27,6 +28,7 @@
     "@types/node": "^22",
     "@types/react": "^18",
     "@types/react-dom": "^18",
+    "sharp": "^0.34.5",
     "tailwindcss": "^4.0.0-beta.6",
     "typescript": "^5"
   }

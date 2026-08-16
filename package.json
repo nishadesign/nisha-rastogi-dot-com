@@ -7,7 +7,9 @@
     "build": "next build",
     "start": "next start",
     "lint": "next lint",
-    "photos:thumbs": "node scripts/gen-photo-thumbs.mjs"
+    "photos:thumbs": "node scripts/gen-photo-thumbs.mjs",
+    "posters": "node scripts/gen-posters.mjs",
+    "video:faststart": "find public -name '*.mp4' -print0 | xargs -0 node scripts/mp4-faststart.mjs"
   },
   "dependencies": {
     "@mdx-js/loader": "^3.0.1",

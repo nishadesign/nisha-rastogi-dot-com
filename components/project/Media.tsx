@@ -44,6 +44,7 @@ function playWhenAllowed(video: HTMLVideoElement) {
 
 export function Media({
   src,
+  hevc,
   alt = "",
   poster,
   priority,
@@ -52,6 +53,10 @@ export function Media({
   eager = false,
 }: {
   src: string;
+  /** HEVC copy offered ahead of `src`. Used where H.264 cannot carry the clip
+   *  at full size: Level 4.2 caps a frame at 8704 macroblocks, which a tall
+   *  portrait clip exceeds, so the H.264 copy has to be scaled down first. */
+  hevc?: string;
   alt?: string;
   poster?: string;
   priority?: boolean;
@@ -63,6 +68,19 @@ export function Media({
   const fitClass = fit === "contain" ? "object-contain" : "object-cover";
   const videoRef = useRef<HTMLVideoElement>(null);
   const [shouldLoad, setShouldLoad] = useState(eager);
+  const hasLoaded = useRef(false);
+
+  // Sources are rendered as <source> children rather than a src attribute, so
+  // the browser can pick HEVC over H.264 where it supports it. That costs one
+  // explicit load(): adding children to a <video> does not, on its own, make
+  // it reconsider a source list it has already walked.
+  useEffect(() => {
+    if (!isVideo || !shouldLoad || hasLoaded.current) return;
+    const el = videoRef.current;
+    if (!el) return;
+    hasLoaded.current = true;
+    el.load();
+  }, [isVideo, shouldLoad]);
 
   useEffect(() => {
     if (!isVideo) return;
@@ -106,7 +124,6 @@ export function Media({
         ref={videoRef}
         className={`absolute inset-0 block w-full h-full ${fitClass}`}
         style={{ objectPosition: position }}
-        src={shouldLoad ? src : undefined}
         poster={poster}
         loop
         muted
@@ -118,7 +135,10 @@ export function Media({
           // still in view (handles the observer-fires-before-load race).
           playWhenAllowed(e.currentTarget);
         }}
-      />
+      >
+        {shouldLoad && hevc && <source src={hevc} type='video/mp4; codecs="hvc1"' />}
+        {shouldLoad && <source src={src} type="video/mp4" />}
+      </video>
     );
   }
 

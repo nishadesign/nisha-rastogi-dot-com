@@ -8,6 +8,9 @@ export type GalleryTile = {
   /** Project slug this tile opens in the overlay. */
   project: string;
   src?: string;
+  /** Optional HEVC copy, offered ahead of `src`. Only worth adding where H.264
+   *  cannot carry the clip at full size — see scripts/encode-videos.mjs. */
+  hevc?: string;
   alt: string;
   poster?: string;
   aspect: string;
@@ -76,6 +79,7 @@ export const galleryTiles: GalleryTile[] = [
     id: "wish-video-discovery",
     project: "wish-fashion",
     src: "/images/projects/wish-fashion/video-based.mp4",
+    hevc: "/images/projects/wish-fashion/video-based.hevc.mp4",
     alt: "Wish video-based discovery",
     poster: "/images/projects/wish-fashion/product-description.webp",
     aspect: "9/16",

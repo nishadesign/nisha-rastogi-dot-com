@@ -133,8 +133,15 @@ export function GalleryWall({
     };
   }, [details, selected]);
 
+  // overflow-x-clip on the section: cards enter at scale 1.16 pushed 160px
+  // toward the viewer, so a 340px card renders about 480px wide. They are
+  // invisible at that point (opacity 0) but still widen the scrollable area,
+  // and every card below the fold holds that pose until it is scrolled to —
+  // which on a phone leaves a strip of empty space you can pan into. `clip`
+  // rather than `hidden`: hidden would turn the vertical axis into a scroll
+  // container and break sticky positioning.
   return (
-    <section className="px-5 tablet:px-10 pt-24 tablet:pt-[160px] pb-24 tablet:pb-40">
+    <section className="px-5 tablet:px-10 pt-24 tablet:pt-[160px] pb-24 tablet:pb-40 overflow-x-clip">
       {/* hero headline */}
       <motion.h1
         className="hero-h1 pb-6 tablet:pb-8 text-center"

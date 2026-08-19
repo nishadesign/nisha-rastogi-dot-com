@@ -21,6 +21,14 @@
   display: flex;
   flex-direction: column;
   gap: var(--pw-gap);
+}
+
+/* Layer promotion is requested only for the duration of a pan (the class is
+   toggled by PhotoWall's rAF loop). Held permanently, the seven tracks —
+   each as wide as its whole photo strip — reserved on the order of 170MB of
+   compositor textures for a wall that is stationary most of the time. */
+.pw-canvas.is-panning,
+.pw-canvas.is-panning .pw-track {
   will-change: transform;
 }
 
@@ -34,16 +42,18 @@
 .pw-row:nth-child(2) { animation-delay: 100ms; }
 .pw-row:nth-child(3) { animation-delay: 200ms; }
 
+/* Opacity and translate only — both composite. The entrance used to blur
+   from 4px, which meant re-rasterising seven strips several thousand pixels
+   wide on every frame of the page load, exactly when the images are also
+   arriving. */
 @keyframes pw-enter {
   from {
     opacity: 0;
     transform: translateY(12px);
-    filter: blur(4px);
   }
   to {
     opacity: 1;
     transform: translateY(0);
-    filter: blur(0);
   }
 }
 
@@ -51,7 +61,6 @@
   display: flex;
   gap: var(--pw-gap);
   height: 100%;
-  will-change: transform;
 }
 
 .pw-photo {
@@ -65,6 +74,10 @@
   background: #eceae6;
   box-shadow: var(--pw-shadow);
   transition: scale 150ms ease-out;
+  /* a tile's paint and internal layout can't affect anything outside it, so
+     the browser is free to skip both for the ones currently off-screen.
+     Deliberately not `size` — the tile's width comes from the image. */
+  contain: layout paint;
 }
 
 .pw-photo:active {
@@ -76,17 +89,34 @@
   height: 100%;
   width: auto;
   max-width: none;
-  transition: transform 300ms cubic-bezier(0.2, 0, 0, 1), filter 300ms cubic-bezier(0.2, 0, 0, 1);
+  transition: transform 300ms cubic-bezier(0.2, 0, 0, 1);
 }
 
 .pw-photo:hover img {
   transform: scale(1.04);
-  filter: brightness(1.08);
+}
+
+/* The hover lift used to be filter: brightness(1.08) on the image, which
+   repaints the whole tile for the length of the transition. A white wash at
+   low opacity reads the same and only ever composites. */
+.pw-photo::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: #fff;
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 300ms cubic-bezier(0.2, 0, 0, 1);
+}
+
+.pw-photo:hover::after {
+  opacity: 0.07;
 }
 
 .pw-photo figcaption {
   position: absolute;
   inset: auto 0 0 0;
+  z-index: 1; /* above the hover wash */
   padding: 24px 12px 10px;
   font-size: 0.8rem;
   color: #fff;

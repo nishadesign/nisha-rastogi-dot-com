@@ -28,10 +28,32 @@ const SPRING_HOME = { type: "spring", visualDuration: 0.3, bounce: 0 } as const;
 const TILE_RADIUS = 10;
 const ZOOM_RADIUS = 16;
 
-// The wall draws from small copies (max 800px, public/photos/thumb) so it
-// doesn't pay for full-size files at tile size; the lightbox upgrades to the
-// 1600px original (public/photos/web) once it has loaded.
-const thumbSrc = (src: string) => src.replace("/photos/web/", "/photos/thumb/");
+// The wall draws from height-capped WebP copies (public/photos/thumb-<h>,
+// built by scripts/gen-photo-thumbs.mjs) so it never pays for full-size files
+// at tile size; the lightbox upgrades to the 1600px original
+// (public/photos/web) once it has loaded. Keep in sync with the script.
+const THUMB_HEIGHTS = [480, 640, 900];
+
+const variantSrc = (src: string, height: number) =>
+  src.replace("/photos/web/", `/photos/thumb-${height}/`).replace(/\.jpe?g$/i, ".webp");
+
+// srcset descriptors are widths, so each variant's width comes from the
+// photo's aspect ratio. `sizes` restates the CSS that sizes a tile — a third
+// of the viewport minus the gaps, times that ratio — so the browser can pick
+// the right copy before any layout has happened. A viewport that can't parse
+// it falls back to the larger copy, which is a heavier download, not a break.
+const GAP = 14; // keep in sync with --pw-gap
+const aspect = (photo: Photo) => photo.w / photo.h;
+
+const srcSetFor = (photo: Photo) =>
+  THUMB_HEIGHTS.map((h) => `${variantSrc(photo.src, h)} ${Math.round(h * aspect(photo))}w`).join(", ");
+
+const sizesFor = (photo: Photo) =>
+  `calc((100vh - ${4 * GAP}px) / 3 * ${aspect(photo).toFixed(3)})`;
+
+// Tiles on the first screen are worth fetching immediately; everything else
+// stays lazy so panning pulls images in as they approach the viewport.
+const EAGER_PER_ROW = 5;
 
 // Row layout: the real rows, a full second copy for the vertical wrap,
 // plus one extra row so the seam's trailing gap is always covered.
@@ -93,6 +115,7 @@ export function PhotoWall() {
     let currentY = 0;
     let lastTime: number | null = null;
     let rafId = 0;
+    let panning = false;
 
     const wrap = (v: number, period: number) => ((v % period) + period) % period;
 
@@ -117,12 +140,42 @@ export function PhotoWall() {
       currentY += (targetY - currentY) * ease;
 
       render();
+
+      // Park the loop once the easing has nothing left to resolve. Left
+      // running, it rewrites eight transforms every frame forever and holds
+      // the compositor layers alive on a wall nobody is touching.
+      if (Math.abs(targetX - currentX) < 0.05 && Math.abs(targetY - currentY) < 0.05) {
+        currentX = targetX;
+        currentY = targetY;
+        render();
+        stopPan();
+        return;
+      }
       rafId = requestAnimationFrame(tick);
+    }
+
+    // will-change lives only for the duration of a pan. Held permanently on
+    // all seven tracks it reserved ~170MB of compositor textures (each track
+    // is the full width of its photo strip); requested per-gesture, the
+    // layers exist only while they earn their keep.
+    function startPan() {
+      if (panning) return;
+      panning = true;
+      canvas!.classList.add("is-panning");
+      lastTime = null;
+      rafId = requestAnimationFrame(tick);
+    }
+
+    function stopPan() {
+      panning = false;
+      cancelAnimationFrame(rafId);
+      canvas!.classList.remove("is-panning");
     }
 
     function nudge(dx: number, dy: number) {
       targetX += dx;
       targetY += dy;
+      startPan();
     }
 
     // --- Lightbox ---
@@ -158,24 +211,38 @@ export function PhotoWall() {
     // As one photo zooms up, the others get nudged radially away from it —
     // strongest for near neighbors, fading out with distance. Passing
     // away=false sends everyone gliding home.
+    // The tile set is fixed after mount, so it is collected once rather than
+    // re-queried on every open — there are a few hundred of them.
+    const tiles = Array.from(gallery.querySelectorAll<HTMLElement>(".pw-photo"));
+
     function partWall(cx: number, cy: number, away: boolean) {
+      if (!away) {
+        tiles.forEach((el) => {
+          if (el !== activeFig && el.style.transform) animate(el, { x: 0, y: 0 }, SPRING_HOME);
+        });
+        return;
+      }
+
       const vw = window.innerWidth;
       const vh = window.innerHeight;
-      gallery!.querySelectorAll<HTMLElement>(".pw-photo").forEach((el) => {
-        if (el === activeFig) return;
-        if (!away) {
-          if (el.style.transform) animate(el, { x: 0, y: 0 }, SPRING_HOME);
-          return;
-        }
+
+      // Every rect is read before the first animation is written. Interleaving
+      // the two forces the browser to re-run layout once per tile, which on a
+      // wall this size turns opening a photo into a visible hitch.
+      const moves: { el: HTMLElement; x: number; y: number }[] = [];
+      for (const el of tiles) {
+        if (el === activeFig) continue;
         const r = el.getBoundingClientRect();
-        if (r.right < -150 || r.left > vw + 150 || r.bottom < -150 || r.top > vh + 150) return;
+        if (r.right < -150 || r.left > vw + 150 || r.bottom < -150 || r.top > vh + 150) continue;
         const dx = r.left + r.width / 2 - cx;
         const dy = r.top + r.height / 2 - cy;
         const dist = Math.hypot(dx, dy) || 1;
         const amt = 110 * Math.exp(-dist / 420);
-        if (amt < 0.5) return;
-        animate(el, { x: (dx / dist) * amt, y: (dy / dist) * amt }, SPRING_PART);
-      });
+        if (amt < 0.5) continue;
+        moves.push({ el, x: (dx / dist) * amt, y: (dy / dist) * amt });
+      }
+
+      for (const m of moves) animate(m.el, { x: m.x, y: m.y }, SPRING_PART);
     }
 
     function openLightbox(photo: Photo, fig: HTMLElement | null) {
@@ -185,9 +252,14 @@ export function PhotoWall() {
       const vw = window.innerWidth;
       const vh = window.innerHeight;
 
-      // Open from the thumbnail — it's already fetched and decoded, so the
-      // zoom starts instantly; the full-size file swaps in when it arrives
-      lightboxImg!.src = thumbSrc(photo.src);
+      // Open from whichever copy the tile is actually showing — srcset means
+      // that varies by viewport, and the one on screen is guaranteed to be
+      // fetched and decoded, so the zoom starts instantly. The full-size file
+      // swaps in when it arrives.
+      const tileImg = fig?.querySelector("img");
+      lightboxImg!.src =
+        tileImg?.currentSrc || variantSrc(photo.src, THUMB_HEIGHTS[THUMB_HEIGHTS.length - 1]);
+      lightboxImg!.srcset = "";
       lightboxImg!.alt = photo.caption || "Photograph";
       lightboxCaption!.textContent = photo.caption || "";
 
@@ -296,9 +368,7 @@ export function PhotoWall() {
         activeFig = null;
         openRect = null;
         // tidy up the parting transforms once everyone is home
-        gallery!.querySelectorAll<HTMLElement>(".pw-photo").forEach((el) => {
-          el.style.removeProperty("transform");
-        });
+        tiles.forEach((el) => el.style.removeProperty("transform"));
       });
     }
 
@@ -330,14 +400,24 @@ export function PhotoWall() {
     // --- Motion wiring (skipped entirely under prefers-reduced-motion:
     // the CSS fallback shows a static, normally-scrollable grid) ---
     let ro: ResizeObserver | null = null;
+    const inputs = new AbortController();
+    const { signal } = inputs;
+
     if (!reducedMotion) {
+      // Seven tracks report at once on the first callback; coalescing into a
+      // single frame keeps that from running measure/render seven times, each
+      // of which reads layout and then writes to it.
+      let measureQueued = 0;
       ro = new ResizeObserver(() => {
-        measure();
-        render();
+        cancelAnimationFrame(measureQueued);
+        measureQueued = requestAnimationFrame(() => {
+          measure();
+          render();
+        });
       });
       rows.forEach((row) => ro!.observe(row.track));
       measure();
-      rafId = requestAnimationFrame(tick);
+      render(); // the loop now starts on input rather than running from mount
 
       // Scrolling pans the wall in the direction of the gesture — vertical,
       // horizontal, or diagonal.
@@ -347,7 +427,7 @@ export function PhotoWall() {
           e.preventDefault();
           nudge(e.deltaX, e.deltaY);
         },
-        { passive: false }
+        { passive: false, signal }
       );
 
       let lastTouch: { x: number; y: number } | null = null;
@@ -356,7 +436,7 @@ export function PhotoWall() {
         (e) => {
           lastTouch = { x: e.touches[0].clientX, y: e.touches[0].clientY };
         },
-        { passive: true }
+        { passive: true, signal }
       );
       gallery.addEventListener(
         "touchmove",
@@ -367,33 +447,42 @@ export function PhotoWall() {
           nudge(lastTouch.x - t.clientX, lastTouch.y - t.clientY);
           lastTouch = { x: t.clientX, y: t.clientY };
         },
-        { passive: false }
+        { passive: false, signal }
       );
-      gallery.addEventListener("touchend", () => {
-        lastTouch = null;
-      });
+      gallery.addEventListener(
+        "touchend",
+        () => {
+          lastTouch = null;
+        },
+        { signal }
+      );
 
       // Keyboard support: arrow keys pan the wall when it's focused
-      gallery.addEventListener("keydown", (e) => {
-        const steps: Record<string, [number, number]> = {
-          ArrowRight: [80, 0],
-          ArrowLeft: [-80, 0],
-          ArrowDown: [0, 80],
-          ArrowUp: [0, -80],
-          PageDown: [0, 400],
-          PageUp: [0, -400],
-        };
-        if (e.key in steps) {
-          e.preventDefault();
-          nudge(steps[e.key][0], steps[e.key][1]);
-        }
-      });
+      gallery.addEventListener(
+        "keydown",
+        (e) => {
+          const steps: Record<string, [number, number]> = {
+            ArrowRight: [80, 0],
+            ArrowLeft: [-80, 0],
+            ArrowDown: [0, 80],
+            ArrowUp: [0, -80],
+            PageDown: [0, 400],
+            PageUp: [0, -400],
+          };
+          if (e.key in steps) {
+            e.preventDefault();
+            nudge(steps[e.key][0], steps[e.key][1]);
+          }
+        },
+        { signal }
+      );
     }
 
     return () => {
-      cancelAnimationFrame(rafId);
+      stopPan();
       zoomGen++; // invalidate any pending close cleanup
       ro?.disconnect();
+      inputs.abort();
       gallery.removeEventListener("click", onGalleryClick);
       lightbox.removeEventListener("click", onLightboxClick);
       document.removeEventListener("keydown", onKeydown);
@@ -423,6 +512,7 @@ export function PhotoWall() {
                 {[false, true].map((loopCopy) =>
                   rowPhotos(src).map(({ photo, index }, i) => {
                     const isClone = cloneRow || loopCopy;
+                    const eager = !isClone && i < EAGER_PER_ROW;
                     return (
                       <figure
                         key={`${loopCopy}-${photo.src}`}
@@ -433,9 +523,12 @@ export function PhotoWall() {
                       >
                         {/* eslint-disable-next-line @next/next/no-img-element */}
                         <img
-                          src={thumbSrc(photo.src)}
+                          src={variantSrc(photo.src, THUMB_HEIGHTS[0])}
+                          srcSet={srcSetFor(photo)}
+                          sizes={sizesFor(photo)}
                           alt={photo.caption || "Photograph"}
-                          loading="lazy"
+                          loading={eager ? "eager" : "lazy"}
+                          fetchPriority={eager ? "high" : undefined}
                           decoding="async"
                           width={photo.w}
                           height={photo.h}

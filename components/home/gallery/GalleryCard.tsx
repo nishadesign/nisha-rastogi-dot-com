@@ -29,6 +29,7 @@ export function GalleryCard({
           tile.src && (
             <Media
               src={tile.src}
+              hevc={tile.hevc}
               alt={tile.alt}
               poster={tile.poster}
               fit={tile.fit ?? "cover"}

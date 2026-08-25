@@ -24,7 +24,7 @@ export const timeline: TimelineEntry[] = [
   
   {
     category: "life",
-    date: "TBD",
+    date: "2040???",
     title: "Coffee, CrossFit & Cocktail",
     description: "I think about where I would want to be in the next phase of my life and I picture myself in a smaller town enjoying my coffee before the WOD and later shaking cocktails behind the bar. ",
   },
@@ -36,27 +36,21 @@ export const timeline: TimelineEntry[] = [
   },
   {
     category: "life",
-    date: "2026",
+    date: "2024",
     title: "Chalk up",
-    description: "Joined CrossFit and am very much a part of this cult now.",
+    description: "The day I hit 100kgs on the weighing scale, I knew I had ignored my health for way too long. I looked for the nearest gyn which happened to be CrossFit gym. Since then, I have dedicated time and energy to getting good at CrossFit",
   },
   {
     category: "travel",
     date: "2025",
     title: "solo trip to Portugal",
     description: "Once in a while, I like spending time by myself, read a book, learn a new skill - I learnt surfing in Portugal.",
-    photos: [
-      {
-        src: "/images/about/portugal.JPG",
-        alt: "solo trip to Portugal",
-      },
-    ],
   },
   {
     category: "travel",
     date: "2023",
-    title: "Oaxaca with Vibhor",
-    description: "Spent 3 weeks in Oaxaca Centro in a co-living space. This trip made me realize I would want something like this for myself.",
+    title: "Oaxaca",
+    description: "Spent 3 weeks in Oaxaca Centro in a co-living space, connecting with strangers, exchanged gifts for Christmas and it didn't matter what each of us did for a living. Connections were made over coffee and I embraced different cultures over shared meals ",
   },
   {
     category: "work",

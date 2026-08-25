@@ -38,7 +38,7 @@ export const timeline: TimelineEntry[] = [
     category: "life",
     date: "2024",
     title: "Chalk up",
-    description: "The day I hit 100kgs on the weighing scale, I knew I had ignored my health for way too long. I looked for the nearest gyn which happened to be CrossFit gym. Since then, I have dedicated time and energy to getting good at CrossFit",
+    description: "The day I hit 100kgs on the weighing scale, I knew I had ignored my health for way too long. I looked for the nearest gym which happened to be a CrossFit gym. Since then, I have dedicated time and energy to getting good at CrossFit.",
   },
   {
     category: "travel",
@@ -50,7 +50,7 @@ export const timeline: TimelineEntry[] = [
     category: "travel",
     date: "2023",
     title: "Oaxaca",
-    description: "Spent 3 weeks in Oaxaca Centro in a co-living space, connecting with strangers, exchanged gifts for Christmas and it didn't matter what each of us did for a living. Connections were made over coffee and I embraced different cultures over shared meals ",
+    description: "Spent 3 weeks in Oaxaca Centro in a co-living space, connecting with strangers, exchanged gifts for Christmas and it didn't matter what each of us did for a living. Connections were made over coffee and I embraced different cultures over shared meals.",
   },
   {
     category: "work",

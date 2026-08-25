@@ -384,3 +384,46 @@ h3 em {
     opacity: 1;
   }
 }
+
+/* Stencil (skeleton) placeholders — see ProjectDetailStencil.
+   These tokens are space-separated channel triplets, so alpha is applied the
+   way the rest of the codebase does it — rgb(<token> / <alpha>). The legacy
+   rgba(r, g, b, a) form cannot take them: rgba(0 0 0, 0.07) is invalid and
+   the declaration is dropped silently. --color-muted-rgb is unusable here
+   either way, since it already carries its own alpha ("0 0 0 / 0.6"). */
+.stencil {
+  position: relative;
+  overflow: hidden;
+  /* The overlay panel sits on --color-background (245), so the placeholder
+     has to be darker than its surface, not lighter. */
+  background-color: rgb(var(--color-content-rgb) / 0.07);
+}
+
+/* The sweep is a transform on a pseudo-element, so it composites and never
+   repaints the block underneath. */
+.stencil::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  transform: translateX(-100%);
+  background: linear-gradient(
+    90deg,
+    transparent,
+    rgb(var(--color-inverse-rgb) / 0.55),
+    transparent
+  );
+  animation: stencil-sweep 1.5s cubic-bezier(0.4, 0, 0.2, 1) infinite;
+}
+
+@keyframes stencil-sweep {
+  to {
+    transform: translateX(100%);
+  }
+}
+
+/* A shimmer is decorative; without it the stencil still reads as "pending". */
+@media (prefers-reduced-motion: reduce) {
+  .stencil::after {
+    animation: none;
+  }
+}

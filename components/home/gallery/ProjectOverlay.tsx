@@ -7,6 +7,7 @@ import { AnimatePresence, motion } from "motion/react";
 import { X } from "lucide-react";
 import type { ProjectFrontmatter } from "@/types/project";
 import { ProjectDetailContent } from "./ProjectDetailContent";
+import { ProjectDetailStencil } from "./ProjectDetailStencil";
 
 const ease = [0.23, 1, 0.32, 1] as const;
 
@@ -90,8 +91,21 @@ export function ProjectOverlay({
               <X size={18} />
             </button>
 
+            {/* The stencil fades in rather than appearing outright. A project
+                that resolves in under ~100ms would otherwise flash a
+                placeholder on screen and rip it away again; at this duration
+                a fast load simply never reaches full opacity. */}
             {isLoading ? (
-              <ProjectOverlayMessage>Loading project...</ProjectOverlayMessage>
+              <motion.div
+                initial={{ opacity: 0 }}
+                animate={{ opacity: 1 }}
+                transition={{ duration: 0.18, ease }}
+              >
+                <ProjectDetailStencil />
+                <span className="sr-only" role="status">
+                  Loading project
+                </span>
+              </motion.div>
             ) : hasError ? (
               <ProjectOverlayMessage>
                 Could not load this project. Please try again.
